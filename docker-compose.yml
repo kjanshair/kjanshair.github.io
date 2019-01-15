@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  kjanshair:
+    image: jekyll/jekyll:latest
+    container_name: "kjanshair"
+    volumes:
+     - "./:/app"
+     - "/usr/local/bundle:/usr/local/bundle"
+    #  - JEKYLL_ENV=development
+    working_dir: /app
+    ports:
+     - "4000:4000"
+    command: "jekyll serve"

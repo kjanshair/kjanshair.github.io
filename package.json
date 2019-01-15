@@ -1,0 +1,21 @@
+{
+  "name": "kjanshair.github.io",
+  "version": "1.0.0",
+  "description": "My blogging website with Jekyll.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Janshair Khan",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-clean-css": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-uglify": "^3.0.1"
+  },
+  "dependencies": {
+    "bootstrap": "^4.2.1",
+    "bootstrap-social": "^5.1.1"
+  }
+}

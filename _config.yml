@@ -1,0 +1,18 @@
+title:             Janshair Khan
+email:             kjanshair@yahoo.com
+# description:       A Blog Theme by Start Bootstrap
+author:            Janshair Khan
+baseurl:           "/"
+url:               "http://kjanshair.github.io"
+
+# Social Profiles
+twitter_username:  kjanshair
+github_username:   kjanshair
+
+# Build settings
+markdown:          kramdown
+paginate:          5
+paginate_path:     "/posts/page:num/"
+plugins:
+  - jekyll-feed
+  - jekyll-paginate
