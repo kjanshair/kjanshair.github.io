@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Using Azure CDN for your website images"
-date:       2017-04-27 22:19:06
+date:       2017-04-27
 comments: true
 author:     "Janshair Khan"
 color: "#2975C6"

@@ -4,7 +4,7 @@ email:             kjanshair@yahoo.com
 author:            Janshair Khan
 baseurl:           "/"
 url:               "http://kjanshair.github.io/"
-permalink: /:title/
+permalink: /:year/:month/:day/:title/
 
 # Social Profiles
 twitter_username:  kjanshair
