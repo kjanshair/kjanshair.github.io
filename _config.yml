@@ -3,7 +3,8 @@ email:             kjanshair@yahoo.com
 # description:       A Blog Theme by Start Bootstrap
 author:            Janshair Khan
 baseurl:           "/"
-url:               "http://kjanshair.github.io"
+url:               "http://kjanshair.github.io/"
+permalink: /:title/
 
 # Social Profiles
 twitter_username:  kjanshair
