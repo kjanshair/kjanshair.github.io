@@ -7,7 +7,8 @@ services:
     volumes:
      - "./:/app"
      - "/usr/local/bundle:/usr/local/bundle"
-    #  - JEKYLL_ENV=development
+    environment:
+     - JEKYLL_ENV=production
     working_dir: /app
     ports:
      - "4000:4000"
