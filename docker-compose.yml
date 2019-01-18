@@ -8,7 +8,7 @@ services:
      - "./:/app"
      - "/usr/local/bundle:/usr/local/bundle"
     environment:
-     - JEKYLL_ENV=production
+     - JEKYLL_ENV=development
     working_dir: /app
     ports:
      - "4000:4000"

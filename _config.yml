@@ -9,6 +9,7 @@ permalink: /:year/:month/:day/:title/
 # Social Profiles
 twitter_username:  kjanshair
 github_username:   kjanshair
+linkedin_username: kjanshair
 
 # Build settings
 markdown:          kramdown

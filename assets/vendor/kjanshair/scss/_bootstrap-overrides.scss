@@ -18,7 +18,8 @@
   &:focus,
   &:active {
     color: $white;
-    background-color: darken($gray-500, 7.5) !important;
+    // background-color: darken($header, 1.5) !important;
+    background-color: lighten($header, 10) !important;
     // border-color: darken($gray-400, 7.5) !important;
     border-color: $black !important;
   }
