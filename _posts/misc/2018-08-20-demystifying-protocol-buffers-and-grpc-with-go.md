@@ -55,7 +55,7 @@ Now we have our packages ready. Next we need to create a Protocol Buffer definit
 
 This Protocol Buffer definition file acts as a *Contract* between a gRPC Server and gRPC Clients. We define fields and methods in this definition file which a gRPC server is going to implement in the code. The definition file also contains fields and methods that a gRPC client can use to interact with gRPC server. This makes it clear for gRPC server that what it should do in order to provide services and what services are available for gRPC client. This file has an **.proto** extension. Create a file at the directory `${GOPATH}/src/api` by the name `api.proto` and add the following content in the file:
 
-```
+```protouf
 syntax="proto3";
 package api;
 
@@ -81,7 +81,7 @@ The file is pretty self-explanatory. It has 2 fields a `Request`, a `Response` a
 
 Note the `--go_out=plugins=grpc` part of the command. This command will generate a Go code at the same location where our proto definition file is. Next we need to write code for setting up a **gRPC Server** in Go which will serve for requests. We will treat the code for gRPC Server and the generated proto Go code as 2 separate Go packages where the proto generated code will be imported as package inside the gRPC server Go package. Lets write code for gRPC Server. Create a file at `src/server/main.go` and add the below code:
 
-```
+```go
 package main
 
 import (
@@ -120,7 +120,7 @@ Now our gRPC Server is ready. Next we need a gRPC client to consume those servic
 
 Create a file at `${GOPATH}/src/client/main.go` and put the below code in the file:
 
-```
+```go
 package main
 
 import (
