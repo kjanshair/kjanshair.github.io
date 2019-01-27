@@ -87,6 +87,8 @@ There are other Azure CDN Endpoint options that you can choose from based upon y
 
 Also you can use your own **Custom Origin** for your assets if you don't want it to be the part of Azure services such as in an Azure Storage Account. You can learn more about using Azure CDN with custom origin options for Azure CDN [here](https://docs.microsoft.com/en-us/azure/cdn/cdn-create-new-endpoint).
 
-{% if page.comments %}
-    {% include disqus.html %}
+{% if jekyll.environment == "production" %}    
+    {% if page.comments %}
+      {% include disqus.html %}
+    {% endif %}
 {% endif %}
