@@ -63,7 +63,7 @@ So, what we want from Ansible simply now is to:
 
 This is a super simple illustration of the how Ansible Playbooks works. The Playbook YAML file for this is given below:
 
-```
+```yaml
 ---
 - hosts: all
   become: true

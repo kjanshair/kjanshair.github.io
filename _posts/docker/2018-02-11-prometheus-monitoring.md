@@ -56,7 +56,7 @@ The above 3 components are the basis of the entire Prometheus Monitoring system.
 
 Its time to setup Prometheus stack on your Linux Server. You will setup Prometheus server for collecting metrics, Grafana for visualization and Node Exporter for monitoring the Ubuntu 16.04 Linux host system. You will use `docker-compose` to spin up services for Prometheus, Grafana and Node Exporter but let's first spin up a stand-alone Prometheus server service with the `docker-compose` file given below:
 
-```
+```yaml
 version: '3'
 
 networks:
@@ -98,7 +98,7 @@ This compose file will spin up the Prometheus Server with no Exporter or applica
 
 The next thing, you should do is to spin-up the **Node Exporter** container and attach it to the Prometheus server as shown in the below YAML file:
 
-```
+```yaml
 version: '3'
 
 networks:
@@ -163,7 +163,7 @@ Grafana is a Data visualization & Monitoring tool with support for a number of d
 
 What happens here though is you write PromQL queries in Grafana Dashboard items instead of writing in the Prometheus server, Grafana pull those metrics from the Prometheus server at an  interval that you choose at the top-right corner of the Grafana Dashboard and displays them graphically in its Dashboard. Grafana itself runs in the Docker container so add the Grafana service and our final `docker-compose` file looks like:
 
-```
+```yaml
 version: '3'
 
 networks:

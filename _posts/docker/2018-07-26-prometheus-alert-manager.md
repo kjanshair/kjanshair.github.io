@@ -35,7 +35,7 @@ Prometheus BlackBox Exporter will probe for the health status check on NGINX and
 
 First we need to tell Prometheus Server where it should for AlertManager. We do this by editing Prometheus configuration `prometheus.yml` file as:
 
-```
+```yaml
 ...
 ...
 # Alertmanager configuration
@@ -54,7 +54,7 @@ It is important to note that we are providing the *Docker container name* here, 
 
 Next, we need to tell Prometheus Server about the use of BlackBox Exporter to probe Apache and NGINX containers over HTTP. We do this by adding:-
 
-```
+```yaml
   - job_name: 'httpd'
     metrics_path: /probe
     params:
@@ -89,7 +89,7 @@ In the Prometheus configuration file, we can see here that the host name for Bla
 
 Next we need to tell the *Alerting Rules* to Prometheus Server upon which Prometheus will fire alerts. We do this by adding a `alert.rules` file that we also need to configure in the Prometheus Server. The file contains the following content:
 
-```
+```yaml
 groups:
 
 - name: httpd
@@ -123,7 +123,7 @@ Now Prometheus got a service down and it has to notify someone (Since Prometheus
 
 In our example, the AlertManager file is inside the folder `alertmanager` by the name `config.yml`. The contents of the YAML file looks something like this:
 
-```
+```yaml
 route:
   repeat_interval: 2h
   receiver: email-1

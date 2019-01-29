@@ -55,7 +55,7 @@ Now we have our packages ready. Next we need to create a Protocol Buffer definit
 
 This Protocol Buffer definition file acts as a *Contract* between a gRPC Server and gRPC Clients. We define fields and methods in this definition file which a gRPC server is going to implement in the code. The definition file also contains fields and methods that a gRPC client can use to interact with gRPC server. This makes it clear for gRPC server that what it should do in order to provide services and what services are available for gRPC client. This file has an **.proto** extension. Create a file at the directory `${GOPATH}/src/api` by the name `api.proto` and add the following content in the file:
 
-```protouf
+```proto
 syntax="proto3";
 package api;
 

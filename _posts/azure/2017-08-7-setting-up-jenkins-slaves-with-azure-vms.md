@@ -92,13 +92,13 @@ Now we have our Master-Slave Jenkins instances up and running, we will finally w
 
 Go to configure section of the project and write the below script in the pipeline script:
 
-<pre>
+```groovy
 node {
     stage ('display') {
         echo "NODE_NAME = ${env.NODE_NAME}"
     }
 }
-</pre>
+```
 
 Hit save, build the project a couple of times and you will see that the node names are different on some builds that's because build load is being divided among 2 Jenkins slaves.
 

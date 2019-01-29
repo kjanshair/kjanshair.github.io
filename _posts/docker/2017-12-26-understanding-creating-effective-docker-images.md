@@ -45,7 +45,7 @@ Similar concept applies to Docker images. Docker images are composed of layers b
 
 Let's take a simple example to see how image layers are created & organized. Consider the below Dockerfile:
 
-```
+```dockerfile
 FROM microsoft/dotnet:latest
 
 WORKDIR /app
@@ -141,7 +141,7 @@ Have you noticed that there was a problem while creating the image for our appli
 
 As said earlier that changing the source code effects the *COPY* instruction in the Dockerfile. Hence it will make the above layers to change. Another way of writing Dockerfile for the same application could be:
 
-```
+```dockerfile
 FROM microsoft/dotnet:latest
 
 WORKDIR /app
