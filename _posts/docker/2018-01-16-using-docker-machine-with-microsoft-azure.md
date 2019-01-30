@@ -70,6 +70,8 @@ And browse to the Public IP address of the VM in a browser and you will see that
 
 <img src="https://kjanshair.azureedge.net/docker/docker-machine-azure-driver/docker-machine-azure-3.png" alt="docker-machine-azure-1" class="img-responsive center-block"/>
 
-{% if page.comments %}
-    {% include disqus.html %}
+{% if jekyll.environment == "production" %}    
+    {% if page.comments %}
+      {% include disqus.html %}
+    {% endif %}
 {% endif %}

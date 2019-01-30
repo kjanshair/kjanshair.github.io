@@ -110,6 +110,8 @@ Hit save, build the project a couple of times and you will see that the node nam
 
 Setting up Jenkins slaves really improves the overall performance of a CI system. Other CI systems such as CircleCI, VSTS etc. support **Build Agents** to divide your build loads across agents and make them able to run concurrently. The difference is that others are paid (Usually if more than 1 build agents are required) and Jenkins is free. But you have to create servers for your Jenkins CI yourself. 
 
-{% if page.comments %}
-    {% include disqus.html %}
+{% if jekyll.environment == "production" %}    
+    {% if page.comments %}
+      {% include disqus.html %}
+    {% endif %}
 {% endif %}
