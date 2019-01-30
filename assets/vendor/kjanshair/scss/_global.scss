@@ -5,8 +5,11 @@ body {
   @include serif-font;
 }
 
-a.vglnk {
-  color: white;
+div.highlighter-rouge {
+  border: solid;
+  border-radius: 10px;
+  border-width: 1px;
+  padding: 15px 1px 1px 20px;
 }
 
 img {
@@ -22,7 +25,8 @@ a.social-icons {
 code {
   color: $white;
   padding: 2px 6px 1px 6px;
-  background: $gray-800;
+  background: #42474e;
+  border-radius: 6px;
 }
 
 pre > code {
