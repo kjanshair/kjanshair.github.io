@@ -61,6 +61,10 @@ a {
   }
 }
 
+code > a {
+  color: white;
+}
+
 blockquote {
   font-style: italic;
   color: $gray-600;
