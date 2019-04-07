@@ -39,16 +39,16 @@ To access images via Azure CDN, we first create an Azure Storage Account where w
 
 - Go to *Azure Portal* => *New* => *Storage* => *Create a Storage Account*
 
-<img src="https://kjanshairio.azureedge.net/azure/2017-04-27-Using-Azure-CDN-for-your-website-images/1.png" alt="'Setting up Azure Storage Account'" class="img-responsive center-block">
+<img src="https://kjanshair.azureedge.net/azure/2017-04-27-Using-Azure-CDN-for-your-website-images/1.png" alt="'Setting up Azure Storage Account'" class="img-responsive center-block">
 
 - Open the Storage Account in the *Microsoft Azure Storage Explorer* which you can get for free on Win\Mac\Linux to upload your images to Azure Blob storage or you can use Azure Portal too.
 -  Upload your images there.
 
-<img src="https://kjanshairio.azureedge.net/azure/2017-04-27-Using-Azure-CDN-for-your-website-images/2.png" alt="'Setting up Azure Storage Account'" class="img-responsive center-block">
+<img src="https://kjanshair.azureedge.net/azure/2017-04-27-Using-Azure-CDN-for-your-website-images/2.png" alt="'Setting up Azure Storage Account'" class="img-responsive center-block">
 
 -  Change the Account Access policy to *Container* or use a SAS (Storage Access Signature) to access individual images via a unique URI within a specific time period and from a network. I will change the Access Policy to *Container* in order to get every image (or more appropriately called an **Asset**) via a unique URI here for this demo.
 
-<img src="https://kjanshairio.azureedge.net/azure/2017-04-27-Using-Azure-CDN-for-your-website-images/3.png" alt="'Setting up Azure Storage Account'" class="img-responsive center-block">
+<img src="https://kjanshair.azureedge.net/azure/2017-04-27-Using-Azure-CDN-for-your-website-images/3.png" alt="'Setting up Azure Storage Account'" class="img-responsive center-block">
 
 > If you don't know how to create a Storage Account, learn more about creating your Azure Storage Account [here](https://docs.microsoft.com/en-us/azure/storage/storage-create-storage-account).
 
@@ -59,7 +59,7 @@ When the storage account is ready. Next, we need to provision Azure CDN Profile.
 - *Azure Portal* = > *New* => *Web + Mobile*  => *CDN*
 - Give it a name, resource group, a Pricing Tier and hit *Create*
 
-<img src="https://kjanshairio.azureedge.net/azure/2017-04-27-Using-Azure-CDN-for-your-website-images/4.png" alt="'Setting up Azure Storage Account'" class="img-responsive center-block">
+<img src="https://kjanshair.azureedge.net/azure/2017-04-27-Using-Azure-CDN-for-your-website-images/4.png" alt="'Setting up Azure Storage Account'" class="img-responsive center-block">
 
 There are 3 pricing tier available that you can choose from: **Standard Akamai**, **Standard Verizon** and **Premium Verizon**. You can read full details about Azure CDN Pricing tiers [here](https://azure.microsoft.com/en-us/pricing/details/cdn/).
 
@@ -69,7 +69,7 @@ After a few seconds, your CDN service will be ready and a different DNS name wil
 - Type a name and select *Origin Type* as *Storage* from the drop down.
 - Select the Blob Storage Account where images are hosted and click **Add**.
 
-<img src="https://kjanshairio.azureedge.net/azure/2017-04-27-Using-Azure-CDN-for-your-website-images/5.png" alt="'Setting up Azure Storage Account'" class="img-responsive center-block">
+<img src="https://kjanshair.azureedge.net/azure/2017-04-27-Using-Azure-CDN-for-your-website-images/5.png" alt="'Setting up Azure Storage Account'" class="img-responsive center-block">
 
 ### Accessing your assets
 
@@ -77,7 +77,7 @@ When your endpoint is added, you can now access your individual assets via a uni
 
 `https://[DNS-Endpoint]/[Blob-Container]/[Blog-Date-Blog-Title]/[file-name]`
 or try this in your browser:
-`https://kjanshairio.azureedge.net/azure/2017-04-27-Using-Azure-CDN-for-your-website-images/1.png`
+`https://kjanshair.azureedge.net/azure/2017-04-27-Using-Azure-CDN-for-your-website-images/1.png`
 
 Now you can refer those images in production as CDN for your website. These assets might take about 1-2 hours to spread all of your assets across the globally available edge locations.
 
