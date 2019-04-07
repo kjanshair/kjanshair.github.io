@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Using cluster-autoscaler with AWS EKS"
-date:       2019-04-05
+date:       2019-04-06
 comments: true
 author:     "Janshair Khan"
 color: "#F0B500"
