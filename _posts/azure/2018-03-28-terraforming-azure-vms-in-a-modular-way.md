@@ -151,8 +151,8 @@ Finally we will use another module from the Terraform Registry that I have creat
 ...
 ...
 
-module "VirtualMachine" {
-    source = "kjanshair/virtual-machine/azurerm"
+module "VirtualMachines" {
+    source = "kjanshair/virtual-machines/azurerm"
     nsg_id = "${module.NetworkSecurityGroup.network_security_group_id}"
     subnet_id = "${azurerm_subnet.subnet.id}"
     resource_group = "${azurerm_resource_group.resource_group.name}"
