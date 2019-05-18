@@ -60,25 +60,25 @@ ENTRYPOINT ["/bin/bash"]
 We can easily determine that what this Dockerfile is all about by simply reading the instructions. The Dockerfile is for a .NET Core application and we can see that this Dockerfile contains 5 instructions, hence it will create 5 image layers. We run the command `docker image build -t <img-name> .` at the root of the project to build the image and notice the output carefully:
 
 ```textile
-1:  Sending build context to Docker daemon  70.66kB
-2:  Step 1/5 : FROM microsoft/dotnet:latest
-3:    ---> 7d4dc5c258eb
-4:  Step 2/5 : WORKDIR /app
-5:    ---> f155edccaebc
-6:  Removing intermediate container b9d453e30500
-7:  Step 3/5 : COPY . /app
-8:    ---> 5e8829f8e16a
-9:  Step 4/5 : RUN dotnet restore
-10:  ---> Running in 18c1895b1882
-11: Restore completed in 63.42 ms for /app/app.csproj.
-12:  ---> 8aa5ee29da9e
-13: Removing intermediate container 18c1895b1882
-14: Step 5/5 : ENTRYPOINT /bin/bash
-15:  ---> Running in f5fcc6b37b77
-16:  ---> ce49ab5a2c9c
-17: Removing intermediate container f5fcc6b37b77
-18: Successfully built ce49ab5a2c9c
-19: Successfully tagged kjanshair/app1:latest
+Sending build context to Docker daemon  70.66kB
+Step 1/5 : FROM microsoft/dotnet:latest
+  ---> 7d4dc5c258eb
+Step 2/5 : WORKDIR /app
+  ---> f155edccaebc
+Removing intermediate container b9d453e30500
+Step 3/5 : COPY . /app
+  ---> 5e8829f8e16a
+Step 4/5 : RUN dotnet restore
+  ---> Running in 18c1895b1882
+Restore completed in 63.42 ms for /app/app.csproj.
+  ---> 8aa5ee29da9e
+Removing intermediate container 18c1895b1882
+Step 5/5 : ENTRYPOINT /bin/bash
+  ---> Running in f5fcc6b37b77
+  ---> ce49ab5a2c9c
+Removing intermediate container f5fcc6b37b77
+Successfully built ce49ab5a2c9c
+Successfully tagged kjanshair/app1:latest
 ```
 
 I added the line numbers for reference. The way docker creates an image is it first creates a container from the base image called **Intermediate Container** (you can see the base image ID at line 3). It then executes the second instruction of the Dockerfile in the intermediate container, creates another image layer (with ID on line 5) and destroy the intermediate container (line 6). The same way it creates another intermediate container from the last image (image with the ID at line 5), execute the 3rd instruction, creates another image layer and destroys the intermediate container and it keep doing the same for all instructions in the Dockerfile until it creates a final image (with ID at line 18) and assign a tag to it (line 19).
@@ -98,25 +98,25 @@ f155edccaebc - Layer 2
 Let's modify the source code, re-build the image and notice the output.
 
 ```textile
-1.  Sending build context to Docker daemon  70.66kB
-2.  Step 1/5 : FROM microsoft/dotnet:latest
-3.    ---> 7d4dc5c258eb
-4.  Step 2/5 : WORKDIR /app
-5.    ---> Using cache
-6.    ---> f155edccaebc
-7.  Step 3/5 : COPY . /app
-8.    ---> eb76f1a774b4
-9.  Step 4/5 : RUN dotnet restore
-10.   ---> Running in 05be553ca0f0
-11. Restore completed in 17.94 ms for /app/app.csproj.
-12.   ---> c4125def5c1f
-13. Removing intermediate container 05be553ca0f0
-14. Step 5/5 : ENTRYPOINT /bin/bash
-15.   ---> Running in 83d3eb5046c9
-16.   ---> 64a97e217018
-17. Removing intermediate container 83d3eb5046c9
-18. Successfully built 64a97e217018
-19. Successfully tagged kjanshair/app1:latest
+Sending build context to Docker daemon  70.66kB
+Step 1/5 : FROM microsoft/dotnet:latest
+  ---> 7d4dc5c258eb
+Step 2/5 : WORKDIR /app
+  ---> Using cache
+  ---> f155edccaebc
+Step 3/5 : COPY . /app
+  ---> eb76f1a774b4
+Step 4/5 : RUN dotnet restore
+  ---> Running in 05be553ca0f0
+Restore completed in 17.94 ms for /app/app.csproj.
+  ---> c4125def5c1f
+Removing intermediate container 05be553ca0f0
+Step 5/5 : ENTRYPOINT /bin/bash
+  ---> Running in 83d3eb5046c9
+  ---> 64a97e217018
+Removing intermediate container 83d3eb5046c9
+Successfully built 64a97e217018
+Successfully tagged kjanshair/app1:latest
 ```
 
 Notice the line **Using cache** at line 5. This is because upon modifying the source code, the change didn't effect at this layer so it remained unchanged and Docker got the cached layer but below that instruction, everything was re-built. Type the `docker image history <img-name>` command again and check the top 5 layer IDs.
