@@ -2,12 +2,13 @@
   <script src="{{"/assets/vendor/jquery/jquery.min.js" | relative_url }}"></script>
   <script src="{{"/assets/vendor/bootstrap/js/bootstrap.bundle.min.js" | relative_url }}"></script>
   <script src="{{"/assets/vendor/kjanshair/js/kjanshair.min.js" | relative_url }}"></script>
-{% endif %}
-
-{% if jekyll.environment == "production" %}    
+  {% endif %}
+  
+  {% if jekyll.environment == "production" %}    
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
   <script src="{{"/assets/vendor/kjanshair/js/kjanshair.min.js" | relative_url }}"></script>
-{% endif %}
-
+  {% endif %}
+  
+  <script src="{{"/assets/vendor/prism/js/prism.js" | relative_url }}"></script>
 <script src="{{"/assets/scripts.js" | relative_url }}"></script>

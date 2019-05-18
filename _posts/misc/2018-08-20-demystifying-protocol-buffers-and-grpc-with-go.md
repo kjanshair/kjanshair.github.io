@@ -43,13 +43,21 @@ First we need a Go workspace for both gRPC client and gRPC server. To do this, c
 
 Now we have our Go workspace. We now need to run below commands to get required Go packages to get up and running with a gRPC Server and a gRPC client. These commands will also install `protoc-gen-go` which is a compiler for Protocol Buffer:
 
-`go get -u github.com/golang/protobuf/protoc-gen-go`
+```bash
+go get -u github.com/golang/protobuf/protoc-gen-go
+```
 
-`go get -u golang.org/x/net/context`
+```bash
+go get -u golang.org/x/net/context
+```
 
-`go get -u google.golang.org/grpc`
+```bash
+go get -u google.golang.org/grpc
+```
 
-`go get -u google.golang.org/grpc/reflection`
+```bash
+go get -u google.golang.org/grpc/reflection
+```
 
 Now we have our packages ready. Next we need to create a Protocol Buffer definition file which contains the contents about what services a gRPC server provides. 
 
@@ -75,7 +83,9 @@ service Greeting {
 
 The file is pretty self-explanatory. It has 2 fields a `Request`, a `Response` and one `Greeting` service. The `Greeting` service contains a *method* `SayHello()` which takes the `Request` object and returns the `Response` object. Now this file is useless without the `protoc` compiler. We will use `protoc` compiler to generate a Go native implementation package for the above defined `api.proto` file. We will then import this generated Go package in our code where we will write code for gRPC Server (gRPC Server Stub). This generated file will act as a contract between gRPC server and gRPC client in our native programming language. So Run the below command to generate Go code based upon the above defined proto file definition:
 
-`protoc -I=${GOPATH}/src --go_out=plugins=grpc:${GOPATH}/src ${GOPATH}/src/api/api.proto`
+```bash
+protoc -I=${GOPATH}/src --go_out=plugins=grpc:${GOPATH}/src ${GOPATH}/src/api/api.proto
+```
 
 > This syntax of proto definition file is out of scope of this blog post. You can read <a href="https://developers.google.com/protocol-buffers/docs/proto" class="underline" target="_blank">here</a> to learn more about how to write proto files for your own use case.
 

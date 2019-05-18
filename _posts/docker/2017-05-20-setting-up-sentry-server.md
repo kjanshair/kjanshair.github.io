@@ -32,13 +32,17 @@ To make things easier, I already created a `docker-compose-sentry.yml` file that
 
 In this file, you first need to add the *Secret Key*. To get the *Secret Key*, run the command:
 
-`docker run --rm sentry config generate-secret-key`
+```bash
+docker run --rm sentry config generate-secret-key
+```
 
 A Secret Key will be printed on the standard output screen, copy this and paste it as the value for *SENTRY_SECRET_KEY* Environment variable for all Sentry Services in the compose file.
 
 Change the SMTP settings, PostgreSQL database volume mount, if required and run the compose command:
 
-`docker-compose -f docker-compose-sentry.yml up -d`
+```bash
+docker-compose -f docker-compose-sentry.yml up -d
+```
 
 This will do 3 core things:
 
@@ -50,11 +54,15 @@ Containers will be able to interact with each other in the private network due t
 
 Now if you are running Sentry for the very first time, you have to **upgrade** your PostgreSQL database. To do this, type `docker container ps` and penetrate into any of the Sentry containers via ID with the command:
 
-`docker container exec -it [containerid] /bin/bash`
+```bash
+docker container exec -it [containerid] /bin/bash
+```
 
 In my case:
 
-`docker container exec -it 8651b0d86500 /bin/bash`
+```bash
+docker container exec -it 8651b0d86500 /bin/bash
+```
 
 And run the `sentry upgrade` command inside the container's console. It will start creating the database schema required by Sentry to be setup successfully.
 

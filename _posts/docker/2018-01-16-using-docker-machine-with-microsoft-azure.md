@@ -31,12 +31,16 @@ Open up your terminal and look for `docker-machine` command to make sure that Do
 
 To create a Docker Machine in the cloud, we use a Docker Machine driver for a particular cloud provider or hyper-visor (such as Oracle VBox) to provision the virtual machine and install latest version of docker. We will use `docker-machine create` command with the following Syntax:
 
-<pre class="prettyprint linenums prettyprinted">docker-machine create --driver [provider] --azure-subscription-id [id] --azure-subnet-prefix [azure-vnet-subnet] --azure-open-port [port] --azure-private-ip-address [private-ip-address] --azure-location [azure-region] [machine-name] </pre>
+
+```bash
+docker-machine create --driver [provider] --azure-subscription-id [id] --azure-subnet-prefix [azure-vnet-subnet] --azure-open-port [port] --azure-private-ip-address [private-ip-address] --azure-location [azure-region] [machine-name]
+```
 
 Although there are <a href="https://docs.docker.com/machine/drivers/azure/" class="underline">other</a> options\flags available to further customize your deployments such as changing the VM image etc. To keep things simple, we'll use the command:
 
-<pre class="prettyprint linenums prettyprinted">docker-machine create --driver azure --azure-open-port 80 --azure-subscription-id axxxxx-xxxx-xxxx-xxxx-xxxxx --azure-subnet-prefix 10.0.0.0/24 --azure-private-ip-address 10.0.0.5 --azure-location "Southeast Asia" machine
-</pre>
+```bash
+docker-machine create --driver azure --azure-open-port 80 --azure-subscription-id axxxxx-xxxx-xxxx-xxxx-xxxxx --azure-subnet-prefix 10.0.0.0/24 --azure-private-ip-address 10.0.0.5 --azure-location "Southeast Asia" machine
+```
 
 This will setup an Azure Virtual Machine:
 
@@ -48,27 +52,38 @@ This will setup an Azure Virtual Machine:
 
 After a short time, it will successfully provision the VM with its components and now run `docker-machine ls` on your machine with Microsoft Azure driver and you'll see Docker Machine is ready.
 
-<img src="https://kjanshair.azureedge.net/docker/docker-machine-azure-driver/docker-machine-azure-1.png" alt="docker-machine-azure-1" class="img-responsive center-block"/>
+{% if jekyll.environment == "production" %}
+ <img src="https://kjanshair.azureedge.net/docker/docker-machine-azure-driver/docker-machine-azure-1.png" alt="docker-machine-azure-1" class="img-responsive center-block"/>
+{% endif %}
 
 ## Configuring Docker Client to connect to the docker-machine
 
 The final step needed here is to configure your `docker` CLI to point the Docker Machine running in Azure. To do this, run `docker-machine env machine` command to see the required configuration details.
 
-<img src="https://kjanshair.azureedge.net/docker/docker-machine-azure-driver/docker-machine-azure-2.png" alt="docker-machine-azure-1" class="img-responsive center-block"/>
+{% if jekyll.environment == "production" %}
+  <img src="https://kjanshair.azureedge.net/docker/docker-machine-azure-driver/docker-machine-azure-2.png" alt="docker-machine-azure-1" class="img-responsive center-block"/>
+{% endif %}
 
 > Note the `DOCKER_HOST` environment variable. It displays the Public IP address of the VM that we just provisioned.
 
 After setting Docker client, every Docker command that you run on your location terminal will be executed on the remote Azure VM. So pull a sample image by running:
 
-<pre class="prettyprint linenums prettyprinted">docker pull kjanshair/aspnetcore-example</pre>
+```bash
+docker pull kjanshair/aspnetcore-example
+```
 
 Run the container:
 
-<pre class="prettyprint linenums prettyprinted">docker run -d --name app -p 80:80 kjanshair/aspnetcore-example</pre>
+```bash
+docker run -d --name app -p 80:80 kjanshair/aspnetcore-example
+```
 
 And browse to the Public IP address of the VM in a browser and you will see that the application is up and running.
 
-<img src="https://kjanshair.azureedge.net/docker/docker-machine-azure-driver/docker-machine-azure-3.png" alt="docker-machine-azure-1" class="img-responsive center-block"/>
+{% if jekyll.environment == "production" %}
+  <img src="https://kjanshair.azureedge.net/docker/docker-machine-azure-driver/docker-machine-azure-3.png" alt="docker-machine-azure-1" class="img-responsive center-block"/>
+{% endif %}
+
 
 {% if jekyll.environment == "production" %}    
     {% if page.comments %}

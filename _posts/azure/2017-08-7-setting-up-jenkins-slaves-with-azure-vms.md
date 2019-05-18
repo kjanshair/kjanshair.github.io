@@ -25,7 +25,9 @@ The Linux instances are:
 - *Master* has IP 10.0.0.4, *Slave1* has IP 10.0.0.5 and *Slave2* has IP 10.0.0.6.
 - *Jenkins Masters* can login into slaves as **jenkins users** via SSH
 
+{% if jekyll.environment == "production" %}
 <img src="https://kjanshair.azureedge.net/azure/setting-up-jenkins-slaves-with-azure-vms/2.png" alt="jenkins-slave-arch" class="img-responsive center-block"/>
+{% endif %}
 
 Make sure that these VMs are pingable from their private IP addresses.
 
@@ -33,11 +35,15 @@ Next go the Jenkins master instance and navigate to:
 
 ***Home => Manage Jenkins => Manage Nodes***
 
+{% if jekyll.environment == "production" %}
 <img src="https://kjanshair.azureedge.net/azure/setting-up-jenkins-slaves-with-azure-vms/3.png" alt="jenkins-slave-arch" class="img-responsive center-block"/>
+{% endif %}
 
 Click *New Node*: Type a name (such as slave1) and check the permanent node radio button. This, in a nutshell, means that you are utilizing a physical Jenkins instance as slave and hit *OK*.
 
+{% if jekyll.environment == "production" %}
 <img src="https://kjanshair.azureedge.net/azure/setting-up-jenkins-slaves-with-azure-vms/4.png" alt="jenkins-slave-arch" class="img-responsive center-block"/>
+{% endif %}
 
 You will be shown a bunch of information on the very next page. We'll cover the necessary information needed here to provision a slave as follows:
 
@@ -49,7 +55,9 @@ You will be shown a bunch of information on the very next page. We'll cover the 
 
 Other input's description on this page is apparent and you can enter your own values. Now we need to configure SSH via Jenkins credentials.
 
+{% if jekyll.environment == "production" %}
 <img src="https://kjanshair.azureedge.net/azure/setting-up-jenkins-slaves-with-azure-vms/5.png" alt="jenkins-slave-arch" class="img-responsive center-block"/>
+{% endif %}
 
 ## Adding Jenkins SSH Credentials
 
@@ -62,27 +70,39 @@ Click the **Add** drop down, and click **Jenkins**. A Jenkins credential provide
 - Select **From the Jenkins master ~/.ssh** in the Private Key because we used *ssh-keygen* to generate public\private SSH keys to the default root location and leave everything else as it is because we have not provided anything else while generating SSH keys such as passphrase etc.
 - Finally enter host for Jenkins slave1 as *10.0.0.5*
 
+{% if jekyll.environment == "production" %}
 <img src="https://kjanshair.azureedge.net/azure/setting-up-jenkins-slaves-with-azure-vms/6.png" alt="jenkins-slave-arch" class="img-responsive center-block"/>
+{% endif %}
 
 After entering credentials, you have to select that newly entered credentials for connecting with Jenkins slaves inside the same network as shown below:
 
+{% if jekyll.environment == "production" %}
 <img src="https://kjanshair.azureedge.net/azure/setting-up-jenkins-slaves-with-azure-vms/7.png" alt="jenkins-slave-arch" class="img-responsive center-block"/>
+{% endif %}
 
 Click save and you will see that a Jenkins slave (*slave1*) is attached with the master.
 
+{% if jekyll.environment == "production" %}
 <img src="https://kjanshair.azureedge.net/azure/setting-up-jenkins-slaves-with-azure-vms/8.png" alt="jenkins-slave-arch" class="img-responsive center-block"/>
+{% endif %}
 
 Repeat the same steps (or use a copy of slave1 instead of permanent node after clicking *New node*) for attaching slave2 with the host IP 10.0.0.6 *with the same Jenkins credentials*.
 
+{% if jekyll.environment == "production" %}
 <img src="https://kjanshair.azureedge.net/azure/setting-up-jenkins-slaves-with-azure-vms/9.png" alt="jenkins-slave-arch" class="img-responsive center-block"/>
+{% endif %}
 
 When selecting a copy of an existing slave, all the attributes are represented on the next page after clicking *OK*.
 
+{% if jekyll.environment == "production" %}
 <img src="https://kjanshair.azureedge.net/azure/setting-up-jenkins-slaves-with-azure-vms/10.png" alt="jenkins-slave-arch" class="img-responsive center-block"/>
+{% endif %}
 
 Modify necessary attributes (**Host** in our case), hit save and you will see that both slaves are not attached with the master node.
 
+{% if jekyll.environment == "production" %}
 <img src="https://kjanshair.azureedge.net/azure/setting-up-jenkins-slaves-with-azure-vms/11.png" alt="jenkins-slave-arch" class="img-responsive center-block"/>
+{% endif %}
 
 ## Running a Test Pipeline
 
@@ -102,9 +122,13 @@ node {
 
 Hit save, build the project a couple of times and you will see that the node names are different on some builds that's because build load is being divided among 2 Jenkins slaves.
 
+{% if jekyll.environment == "production" %}
 <img src="https://kjanshair.azureedge.net/azure/setting-up-jenkins-slaves-with-azure-vms/12.png" alt="jenkins-slave-arch" class="img-responsive center-block"/>
+{% endif %}
 
+{% if jekyll.environment == "production" %}
 <img src="https://kjanshair.azureedge.net/azure/setting-up-jenkins-slaves-with-azure-vms/13.png" alt="jenkins-slave-arch" class="img-responsive center-block"/>
+{% endif %}
 
 ## Conclusions
 

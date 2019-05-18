@@ -41,7 +41,7 @@ Ansible Inventory is a file where you describe your targeted servers. In Linux (
 
 For now, we would like to use the default file location. So open-up this file in an editor and at first, you will see a lot of comments in the inventory file but try to configure your servers at the bottom of the file by creating a group of servers named `webservers` like:
 
-```
+```toml
 [webservers]
 xx.xx.xx.xx
 xx.xx.xx.xx

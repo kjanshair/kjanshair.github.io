@@ -115,7 +115,7 @@ Now you have a chart ready for upload to the repository. Now you will package th
 
 Before packaging the chart, make sure you modify the information about the chart in the `Chart.yml` file. This file contains necessary information such as chart author, chart version etc. For simplicity, we will keep everything as default. Run the below command at the root of the chart directory to package the chart:
 
-```bash
+```
 helm package .
 ```
 
@@ -127,7 +127,10 @@ curl --data-binary "@go-0.1.0.tgz" http://localhost:8080/api/charts
 
 This command will return a JSON response saying that the chart is uploaded to the repository. Uploaded packaged chart can be viewed in the Azure Blob Storage:
 
-<img src="https://kjanshair.azureedge.net/misc/using-helm-helm-repositories-and-chartmuseum/1.png" alt="jenkins-slave-arch" class="img-responsive center-block"/>
+{% if jekyll.environment == "production" %}
+  <img src="https://kjanshair.azureedge.net/misc/using-helm-helm-repositories-and-chartmuseum/1.png" alt="jenkins-slave-arch" class="img-responsive center-block"/>
+{% endif %}
+
 
 ## Conclusion
 Helm package manager greatly simplifies managing application deployments on Kubernetes. ChartMuseum tool is a great tool for managing Helm repositories. ChartMuseum supports several popular backends with the support of other Cloud Storage Solutions such as AWS S3, Google Cloud Storage and more. Follow the **<a href="https://chartmuseum.com/docs/" class="underline" target="_blank">docs</a>** to learn more about ChartMuseum.

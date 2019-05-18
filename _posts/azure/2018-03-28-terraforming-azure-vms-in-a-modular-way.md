@@ -21,26 +21,27 @@ We will use Terraform Azure Resource Manager provider to provision:
 - 3 Linux Virtual Machines with Debian 9 OS image inside an Availability Set
 - Provision a Azure L4 Load Balancer in the front of those Linux Virtal Machines
 
-We won't take a look at how to create your own custom modules here. We will use more than one module from Terraform Registry for a number of Azure Resources to avoid reinventing the wheel by re-writing those modules and will use a custom module that I have <a href="https://registry.terraform.io/modules/kjanshair/virtual-machine/azurerm" class="underline" target="_blank">published</a> to Terraform Registry used for Provisioning Linux Virtual Machines. 
+We won't take a look at how to create your own custom modules here. We will use more than one module from Terraform Registry for a number of Azure Resources to avoid reinventing the wheel by re-writing those modules and will use a custom module that I have <a href="https://registry.terraform.io/modules/kjanshair/virtual-machines/azurerm" class="underline" target="_blank">published</a> to Terraform Registry used for Provisioning Linux Virtual Machines. 
 
 ## Setting up the workspace
 
 We will use a single Terraform configuration file called `resources.tf`. Create this file in an empty folder and configure the Azure Provider via Azure Service Principal in the file as shown below:
 
-```
+```hcl
 # Configure Azure Provider
 
-variable "subscription_id" {}
-variable "client_id" {}
-variable "client_secret" {}
-variable "tenant_id" {}
+variable "subscription_id"{}
+variable "client_id"{}
+variable "client_secret"{}
+variable "tenant_id"{}
 
-provider "azurerm" {
+provider "azurerm"{
     subscription_id = "${var.subscription_id}"
     client_id       = "${var.client_id}"
     client_secret   = "${var.client_secret}"
     tenant_id       = "${var.tenant_id}"
 }
+
 ```
 
 I have set the required Environment Variables to let the Terraform extract the values for these variables from Environment Variables. This is why I did not specify them those values explicitly in the configuration file.
@@ -49,11 +50,11 @@ I have set the required Environment Variables to let the Terraform extract the v
 
 Let's add our first Azure resource by continuing editing the file as:
 
-```
+```hcl
 ...
 ...
 
-resource "azurerm_resource_group" "resource_group" {
+resource "azurerm_resource_group" "resource_group"{
     name     = "TerraformDemoRG"
     location = "West US"
 }
@@ -63,11 +64,11 @@ This will create a Resource Group named "TerraformDemoRG" in the "West US" regio
 
 Next create an Azure Virtual Network that we'll be using for our Virtual Machines. This is where we will use our first Terraform module:
 
-```
+```hcl
 ...
 ...
 
-module "VirtualNetwork" {
+module "VirtualNetwork"{
     source = "Azure/network/azurerm"
     resource_group_name = "${azurerm_resource_group.resource_group.name}"
     location            = "${azurerm_resource_group.resource_group.location}"
@@ -85,11 +86,11 @@ As you can see here that we are borrowing the `resource_group_name` and `locatio
 
 Next we need to define the subnet configurations and Network Security Group setting as:
 
-```
+```hcl
 ...
 ...
 
-resource "azurerm_subnet" "subnet" {
+resource "azurerm_subnet" "subnet"{
   name  = "default"
   address_prefix = "10.0.0.0/16"
   resource_group_name = "${azurerm_resource_group.resource_group.name}"
@@ -97,7 +98,7 @@ resource "azurerm_subnet" "subnet" {
   network_security_group_id = "${module.NetworkSecurityGroup.network_security_group_id}"
 }
 
-module "NetworkSecurityGroup" {
+module "NetworkSecurityGroup"{
     source = "Azure/network-security-group/azurerm"
     resource_group_name        = "${azurerm_resource_group.resource_group.name}"
     location                   = "${azurerm_resource_group.resource_group.location}"
@@ -125,11 +126,11 @@ We are also attaching the newly created NSG to the `default` subnet inside the `
 
 Next we need to provision an Azure Load Balancer. There is also a module for creating an Azure Load Balancer on the Terraform Registry that we used here as:
 
-```
+```hcl
 ...
 ...
 
-module "LoadBalancer" {
+module "LoadBalancer"{
     source = "Azure/loadbalancer/azurerm"
     type    =   "public"
     "lb_port" {
@@ -147,11 +148,11 @@ We used a module for creating an Azure Load Balancer refer here as `LoadBalancer
 
 Finally we will use another module from the Terraform Registry that I have created for provisioning one or more Linux Virtual Machines as:
 
-```
+```hcl
 ...
 ...
 
-module "VirtualMachines" {
+module "VirtualMachines"{
     source = "kjanshair/virtual-machines/azurerm"
     nsg_id = "${module.NetworkSecurityGroup.network_security_group_id}"
     subnet_id = "${azurerm_subnet.subnet.id}"
@@ -165,17 +166,17 @@ module "VirtualMachines" {
     host_names      =   ["host0", "host1"]
     private_ip_addresses      =   ["10.0.1.0", "10.0.2.0"]
     backend_address_pools_ids         = ["${module.LoadBalancer.azurerm_lb_backend_address_pool_id}"]
-    ssh_key = "<your-public-ssh-key>"
+    ssh_key = "${file("~/.ssh/id_rsa.pub")}"
 }
 
 ```
 
-There are a number of attributes here that you use to customize the Virtual Machine(s) provisioning to meet your needs. You can learn about all the Inputs\Outputs of the module on the documentation section <a href="https://registry.terraform.io/modules/kjanshair/virtual-machine/azurerm/" class="underline" target="_blank">here</a>.
+There are a number of attributes here that you use to customize the Virtual Machine(s) provisioning to meet your needs. You can learn about all the Inputs\Outputs of the module on the documentation section <a href="https://registry.terraform.io/modules/kjanshair/virtual-machines/azurerm/" class="underline" target="_blank">here</a>.
 
 Here we are creating 2 Linux VMs inside an Availability Set named `TerraformAS` and behind the Azure Load Balancer. Each Linux VM has the same user name and the host name as defined in the `host_names` list variable i.e. first VM has the SSH user and machine name is `host0` and `host1` for the second VM respectively. Same works in case of `private_ip_addresses` as shown above. We use the `backend_address_pools_ids` to attach each VM to Azure Load Balancer as back-end. Finally set `ssh_key` by the value of your public SSH key that you want to use for each Virtual Machine in the Availability Set. The complete `resources.tf` file is:
 
-```
-module "VirtualNetwork" {
+```hcl
+module "VirtualNetwork"{
     source = "Azure/network/azurerm"
     resource_group_name = "${azurerm_resource_group.resource_group.name}"
     location            = "${azurerm_resource_group.resource_group.location}"
@@ -185,7 +186,7 @@ module "VirtualNetwork" {
     subnet_names        = ["default"]
 }
 
-resource "azurerm_subnet" "subnet" {
+resource "azurerm_subnet" "subnet"{
   name  = "default"
   address_prefix = "10.0.0.0/16"
   resource_group_name = "${azurerm_resource_group.resource_group.name}"
@@ -193,7 +194,7 @@ resource "azurerm_subnet" "subnet" {
   network_security_group_id = "${module.NetworkSecurityGroup.network_security_group_id}"
 }
 
-module "NetworkSecurityGroup" {
+module "NetworkSecurityGroup"{
     source = "Azure/network-security-group/azurerm"
     resource_group_name        = "${azurerm_resource_group.resource_group.name}"
     location                   = "${azurerm_resource_group.resource_group.location}"
@@ -213,7 +214,7 @@ module "NetworkSecurityGroup" {
     ]
 }
 
-module "LoadBalancer" {
+module "LoadBalancer"{
     source = "Azure/loadbalancer/azurerm"
     type    =   "public"
     "lb_port" {
@@ -226,21 +227,21 @@ module "LoadBalancer" {
     public_ip_address_allocation    =   "static"
 }
 
-module "VirtualMachine" {
-    source = "kjanshair/virtual-machine/azurerm"
+module "VirtualMachine"{
+    source = "kjanshair/virtual-machines/azurerm"
     nsg_id = "${module.NetworkSecurityGroup.network_security_group_id}"
     subnet_id = "${azurerm_subnet.subnet.id}"
     resource_group = "${azurerm_resource_group.resource_group.name}"
-    location            = "${azurerm_resource_group.resource_group.location}"
-    nb_instances         =   2
-    update_domain_count     =   2
-    fault_domain_count      =   2
-    availability_set_name   =   "TerraformAS"
-    vm_sizes    =   "Standard_DS1_v2"
-    host_names      =   ["host0", "host1"]
-    private_ip_addresses      =   ["10.0.1.0", "10.0.2.0"]
-    backend_address_pools_ids         = ["${module.LoadBalancer.azurerm_lb_backend_address_pool_id}"]
-    ssh_key = "<your-public-ssh-key>"
+    location = "${azurerm_resource_group.resource_group.location}"
+    nb_instances = 2
+    update_domain_count = 2
+    fault_domain_count = 2
+    availability_set_name = "TerraformAS"
+    vm_sizes = "Standard_DS1_v2"
+    host_names = ["host0", "host1"]
+    private_ip_addresses = ["10.0.1.0", "10.0.2.0"]
+    backend_address_pools_ids = ["${module.LoadBalancer.azurerm_lb_backend_address_pool_id}"]
+    ssh_key = "${file("~/.ssh/id_rsa.pub")}"
 }
 ```
 
