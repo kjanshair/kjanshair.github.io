@@ -34,7 +34,9 @@ We will be installing `cluster-autoscaler` on EKS using `helm`. We have 2 ways f
 
 When creating an EKS cluster, worker nodes usually reside in an AWS ASG or Auto-Scaling Group that has the ability to scales-out & scales-in automatically on-demand. Using single ASG method, *we need to pass the name of ASG* that was created with EKS with minimum and maximum nodes to the CA while deploying using Helm. We need to know the name of the ASG against which we would be enabling Auto-Scaling for worker nodes which we can get from AWS Management Console as shown:
 
+{% if jekyll.environment == "production" %}
 <img src="https://kjanshair.azureedge.net/kubernetes/using-cluster-autoscaler-with-aws-eks/2.png" alt="ca-example-2" class="img-responsive center-block"/>
+{% endif %}
 
 To install CA on EKS, run the below Helm command to install and replace `<asg-name>` by your worker node ASG name:
 
@@ -54,7 +56,9 @@ Auto-Discovery works with the **AWS tags** assigned to the ASG. For Auto-Discove
 
 Value of the tag doesn't matter. These 2 keys must be present for Auto-Discovery to work. These keys are automatically added to the AWS ASG when we pass `--asg-access` flag to `eksctl create cluster` command (as we did at the beginning):
 
+{% if jekyll.environment == "production" %}
 <img src="https://kjanshair.azureedge.net/kubernetes/using-cluster-autoscaler-with-aws-eks/1.png" alt="ca-example-1" class="img-responsive center-block"/>
+{% endif %}
 
 Now run the below Helm command and pass the cluster name (`ca-example` in our case) to the Helm command to install `cluster-autoscaler` using Auto-Discovery method:
 
@@ -64,7 +68,9 @@ helm install stable/cluster-autoscaler --name ca --set autoDiscovery.clusterName
 
 This would make worker nodes auto-scale on EKS as we can see below:
 
+{% if jekyll.environment == "production" %}
 <img src="https://kjanshair.azureedge.net/kubernetes/using-cluster-autoscaler-with-aws-eks/3.png" alt="ca-example-3" class="img-responsive center-block"/>
+{% endif %}
 
 Auto-discovery finds ASG tags and automatically manages them based on the minimum and maximum size specified in the ASG.
 

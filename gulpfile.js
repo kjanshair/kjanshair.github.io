@@ -46,24 +46,26 @@ var gulp = require('gulp');
 
 var gulp = require('gulp');
 var concat = require('gulp-concat');
-// var minify = require('gulp-minify');
+var uglify = require('gulp-uglify');
 var cleanCss = require('gulp-clean-css');
 var sass = require('gulp-sass');
 
 gulp.task('pack-css', function () {    
-    return gulp.src(['assets/main.scss', 'assets/vendor/prism/css/*.css'])
+    return gulp.src(['assets/vendor/main.scss',
+                     'assets/vendor/prism/css/*.css'])
         .pipe(sass().on('error', sass.logError))
         .pipe(concat('main.min.css'))
         .pipe(cleanCss())
    .pipe(gulp.dest('assets'));
 });
  
-// gulp.task('pack-js', function () {    
-//     return gulp.src(['assets/js/vendor/*.js', 'assets/js/main.js', 'assets/js/module*.js'])
-//         .pipe(concat('bundle.js'))
-//         .pipe(minify())
-//         .pipe(gulp.dest('public/build/js'));
-// }); 
+gulp.task('pack-js', function () {    
+    return gulp.src(['assets/vendor/kjanshair/js/*.js',
+                     'assets/vendor/prism/js/*.js',
+                     'assets/scripts.js'])
+        .pipe(concat('main.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('assets'));
+}); 
  
-gulp.task('default', ['pack-css']);
-// gulp.task('default', ['pack-js', 'pack-css']);
+gulp.task('default', ['pack-js', 'pack-css']);

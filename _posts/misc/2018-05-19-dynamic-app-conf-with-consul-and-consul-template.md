@@ -112,16 +112,20 @@ template {
 
 Upon providing correct source and destination file paths, start or enable the `consul-template` daemon process as:
 
-`sudo systemctl start consul-template.service`
-`sudo systemctl enable consul-template.service`
+```bash
+sudo systemctl start consul-template.service
+```
+```bash
+sudo systemctl enable consul-template.service
+```
 
 This will start `consul-template` in the background which will listen from Consul dev server's KV store and will convert the `config.tpl` file to `config.json` if it detects any change in the KV store.
 
 Next go to *Consul Web UI => KEY\VALUE* and add the following keys and values in the store:
 
-`app/config/version` = 1.1
+`app/config/version = 1.1`
 
-`app/config/appname` = golang
+`app/config/appname = golang`
 
 {% if jekyll.environment == "production" %}
 <img src="https://kjanshair.azureedge.net/misc/dynamic-app-conf-with-consul-and-consul-template/4.png" alt="consul-template-1" class="img-responsive center-block"/>
