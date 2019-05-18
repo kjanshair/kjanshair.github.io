@@ -59,7 +59,7 @@ ENTRYPOINT ["/bin/bash"]
 
 We can easily determine that what this Dockerfile is all about by simply reading the instructions. The Dockerfile is for a .NET Core application and we can see that this Dockerfile contains 5 instructions, hence it will create 5 image layers. We run the command `docker image build -t <img-name> .` at the root of the project to build the image and notice the output carefully:
 
-```
+```textile
 1:  Sending build context to Docker daemon  70.66kB
 2:  Step 1/5 : FROM microsoft/dotnet:latest
 3:    ---> 7d4dc5c258eb
@@ -87,7 +87,7 @@ These layers are build on the top of each other. You can use the `docker image h
 
 To check whether image layers are built again by the Docker engine, We need to modify the source code a bit and then re-build the image. Upon modifying the source code, the change will effect at the 3rd instruction of the Dockerfile. But before modifying the code, run the `docker image history <img-name>` command and note down the top 4 layer IDs of the image that is:
 
-```
+```textile
 ce49ab5a2c9c - Layer 5
 8aa5ee29da9e - Layer 4
 5e8829f8e16a - Layer 3
@@ -97,7 +97,7 @@ f155edccaebc - Layer 2
 
 Let's modify the source code, re-build the image and notice the output.
 
-```
+```textile
 1.  Sending build context to Docker daemon  70.66kB
 2.  Step 1/5 : FROM microsoft/dotnet:latest
 3.    ---> 7d4dc5c258eb
@@ -121,7 +121,7 @@ Let's modify the source code, re-build the image and notice the output.
 
 Notice the line **Using cache** at line 5. This is because upon modifying the source code, the change didn't effect at this layer so it remained unchanged and Docker got the cached layer but below that instruction, everything was re-built. Type the `docker image history <img-name>` command again and check the top 5 layer IDs.
 
-```
+```textile
 64a97e217018 - Layer 5
 c4125def5c1f - Layer 4
 eb76f1a774b4 - Layer 3
