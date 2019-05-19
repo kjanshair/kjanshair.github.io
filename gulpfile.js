@@ -49,6 +49,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var cleanCss = require('gulp-clean-css');
 var sass = require('gulp-sass');
+var watch = require('gulp-watch');
 
 gulp.task('pack-css', function () {    
     return gulp.src(['assets/vendor/main.scss',
@@ -66,6 +67,15 @@ gulp.task('pack-js', function () {
         .pipe(concat('main.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('assets'));
-}); 
+});
+
+gulp.task('watch', function(){
+    gulp.watch(['assets/vendor/main.scss',
+                'assets/vendor/prism/css/*.css',
+                'assets/vendor/kjanshair/scss/*.scss'], ['pack-css']);
+    gulp.watch(['assets/vendor/kjanshair/js/*.js',
+                'assets/vendor/prism/js/*.js',
+                'assets/scripts.js'], ['pack-css']);
+})
  
 gulp.task('default', ['pack-js', 'pack-css']);

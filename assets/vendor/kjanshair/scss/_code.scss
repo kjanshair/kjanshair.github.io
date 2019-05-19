@@ -4,10 +4,12 @@ code {
   border-radius: 6px;
   background: #f5f2f0;
 }
+
 pre {
   border-style: double;
   border-width: thin;
 }
+
 pre > code {
   color: $black;
   background: $white;

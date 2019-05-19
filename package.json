@@ -13,7 +13,8 @@
     "gulp-clean-css": "^4.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-uglify": "^3.0.1",
-    "gulp-sass": "*"
+    "gulp-sass": "*",
+    "gulp-watch": "*"
   },
   "dependencies": {
     "bootstrap": "^4.2.1",
