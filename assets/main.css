@@ -479,7 +479,7 @@ pre > code {
   background: #fff; }
 
 code > a {
-  color: white; }
+  color: black !important; }
 
 a.email {
   text-decoration: none;
