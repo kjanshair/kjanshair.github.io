@@ -51,6 +51,12 @@ var cleanCss = require('gulp-clean-css');
 var sass = require('gulp-sass');
 var watch = require('gulp-watch');
 
+gulp.task('scss-css', function () {    
+    return gulp.src(['assets/vendor/main.scss'])
+        .pipe(sass().on('error', sass.logError))
+   .pipe(gulp.dest('assets'));
+});
+
 gulp.task('pack-css', function () {    
     return gulp.src(['assets/vendor/main.scss',
                      'assets/vendor/prism/css/*.css'])
@@ -59,7 +65,7 @@ gulp.task('pack-css', function () {
         .pipe(cleanCss())
    .pipe(gulp.dest('assets'));
 });
- 
+
 gulp.task('pack-js', function () {    
     return gulp.src(['assets/vendor/kjanshair/js/*.js',
                      'assets/vendor/prism/js/*.js',
@@ -79,3 +85,4 @@ gulp.task('watch', function(){
 })
  
 gulp.task('default', ['pack-js', 'pack-css']);
+gulp.task('dev', ['scss-css']);
