@@ -41,7 +41,7 @@ When creating an EKS cluster, worker nodes usually reside in an AWS ASG or Auto-
 To install CA on EKS, run the below Helm command to install and replace `<asg-name>` by your worker node ASG name:
 
 ```bash
-helm install stable/cluster-autoscaler --name ca --set autoscalingGroups[0].name=<asg-name>,autoscalingGroups[0].maxSize=10,autoscalingGroups[0].minSize=3,sslCertPath=/etc/ssl/certs/ca-bundle.crt,rbac.create=true,awsRegion=us-west-2 --namespace=kube-system
+helm install stable/cluster-autoscaler --name ca --set autoscalingGroups[0].name=<asg-name>,autoscalingGroups[0].maxSize=10,autoscalingGroups[0].minSize=2,sslCertPath=/etc/ssl/certs/ca-bundle.crt,rbac.create=true,awsRegion=us-west-2 --namespace=kube-system
 ```
 
 A CA Pod will start running inside `kube-system` namespace which enables worker nodes AutoScaling in AWS EKS. You can check the scalability of the worker nodes by running more Pods than existing worker nodes can handle.
