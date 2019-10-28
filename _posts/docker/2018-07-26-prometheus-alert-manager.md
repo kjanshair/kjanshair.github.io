@@ -7,19 +7,19 @@ author:     "Janshair Khan"
 color: "#E6522C"
 ---
 
-In a <a href="https://kjanshair.github.io/2018/02/20/prometheus-monitoring/" class="underline" target="_blank">previous</a> blog post on Introduction to Prometheus, we haven't covered alerting part which is a mandatory component in a infrastructure monitoring stack. Here, we'll see **Prometheus AlertManager** and its integration with Prometheus Server in action. Let's start with what AlertManager is, AlertManager file structure & integration with Prometheus. 
+Continuing the <a href="https://kjanshair.github.io/2018/02/20/prometheus-monitoring/" class="underline" target="_blank">previous</a> blog post on Prometheus, we will cover the alerting part which is an important component in the Prometheus infrastructure monitoring stack. We'll see **Prometheus AlertManager** and its integration with Prometheus Server in action.
 
 ## Understanding AlertManager and Prometheus Server
 
-Prometheus AlertManager is a Golang binary and is a separate component in the Prometheus monitoring stack. AlertManager, as a component, receives alerts from *Clients* and follow appropriate steps for alert notifications. One of the primary *Client* of the AlertManager is the Prometheus Server itself.
+AlertManager is a Go binary and a separate component that comes with Prometheus. AlertManager, as a component, receives alerts from *Clients* and follow appropriate steps for firing alert notifications. Prometheus is one of the primary *Client* for AlertManager.
 
-First we tell Prometheus Server where AlertManager is in the `prometheus.yml` file by providing the hostname and port of the AlertManager. Once Prometheus Server knows where the AlertManager is, we then tell Prometheus Server the **conditions** upon which it should manage and trigger alerts by forwarding them to AlertManager. If certain condition doesn't meet, it will fire an alert against the condition by forwarding to AlertManager and then the AlertManager is responsible to decide what to do with that alert that it received. These conditions are defined in a rule file called `alert.rules`. The rule file is also configured in the Prometheus configuration `prometheus.yml` file.
+We defined AlertManager's configuration in Prometheus `prometheus.yml` configuration file by providing the host and port of the AlertManager. Once Prometheus knows about the AlertManager is, we define **conditions** in the same Prometheus configuration file based on which Prometheus should ask AlertManager to fire an alert to appropriate targets. If a certain condition doesn't the expectations in Prometheus, Prometheus will ask AlertManager to fire an alert (matching the condition) by forwarding to the AlertManager and finally AlertManager is responsible to decide what to do with those received alerts. AlertManager's conditions are defined in a rule file called `alert.rules`. Alert rules are configured in the Prometheus configuration `prometheus.yml` file.
 
-Below in the image is shown how Prometheus and AlertManager are interacting with an Exporter (BlackBox Exporter in this case), a notification client and a HTTP server.
+In the below image, I showed visually that how a Prometheus and  the AlertManager are interacting with an Exporter (BlackBox Exporter in this case), a notification client and an HTTP Web server.
 
 <img src="https://kjanshair.azureedge.net/docker/prometheus-alert-manager/1.png" alt="prom-am-1" class="img-responsive center-block"/>
 
-In this post, we will see Prometheus Server, AlertManager, BlackBox Exporter, 2 HTTP servers and a notification client as a vehicle to understand how the monitoring stack works. We will be monitoring the status of an Apache HTTP server and an NGINX Web server. All of the components will be running in Docker containers.
+In this post, we will see Prometheus, AlertManager, BlackBox Exporter, 2 HTTP servers and a notification client as vehicles to understand how the monitoring stack works in practice. We will be monitoring the status of an Apache HTTP server and an NGINX Web server. All of the components will be running in Docker containers.
 
 <img src="https://kjanshair.azureedge.net/docker/prometheus-alert-manager/2.png" alt="prom-am-2" class="img-responsive center-block"/>
 
