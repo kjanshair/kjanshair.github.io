@@ -51,8 +51,8 @@ A CA Pod will start running inside `kube-system` namespace which enables worker 
 The other way is using Auto-Discovery of `cluster-autoscaler`. This approach is relatively easier than the previous one. *It is important to note that Auto-Discovery only works with AWS provider*.
 Auto-Discovery works with the **AWS tags** assigned to the ASG. For Auto-Discovery to work, we must assigns **2 tag keys** to the worker nodes ASG:
 
+- `k8s.io/cluster-autoscaler/ca-example`
 - `k8s.io/cluster-autoscaler/enabled`
-- `kubernetes.io/cluster/<your-cluster-name>`
 
 Value of the tag doesn't matter. These 2 keys must be present for Auto-Discovery to work. These keys are automatically added to the AWS ASG when we pass `--asg-access` flag to `eksctl create cluster` command (as we did at the beginning):
 
