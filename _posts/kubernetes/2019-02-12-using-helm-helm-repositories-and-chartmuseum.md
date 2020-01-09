@@ -108,7 +108,7 @@ helm create go
 This chart contains a `deployment` object, a `service` and a `ingress` object for a Microservice. If you have Kubernetes cluster up & running, you can *test* the chart by running:
 
 ```bash
-helm install --name nginx --set image.repository=nginx,image.tag=latest,ingress.enabled=true,ingress.path=/,ingress.hosts[0]=nginx.home . --namespace=dev
+helm install nginx --set image.repository=nginx,image.tag=latest,ingress.enabled=true,ingress.path=/,ingress.hosts[0]=nginx.home . --namespace=dev
 ```
 
 Now you have a chart ready for upload to the repository. Now you will package this chart and upload it to the Helm repository via ChartMuseum's HTTP endpoint.
