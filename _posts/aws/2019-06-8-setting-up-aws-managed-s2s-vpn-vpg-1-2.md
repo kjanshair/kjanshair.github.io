@@ -54,19 +54,19 @@ Now we have the infrastructure ready, let's start by creating a *Virtual Private
 A Virtual Private Gateway is a software-based appliance that sits at the edge of the VPC in AWS. Go to VPC home page, click on Virtual Private Gateways:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/1.png" alt="1" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/1.png" alt="1" class="img-responsive center-block"/>
 {% endif %}
 
 Click **Create Virtual Private Gateway**, assign a tag name and choose Amazon Default ASN:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/2.png" alt="2" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/2.png" alt="2" class="img-responsive center-block"/>
 {% endif %}
 
 Attach the VPG to the VPC that is created by the Terraform script:- 
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/3.png" alt="3" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/3.png" alt="3" class="img-responsive center-block"/>
 {% endif %}
 
 Now our Virtual Private Gateway is ready and attached to the VPC. We are done with the AWS side now. Next, we will create a Customer Gateway.
@@ -76,13 +76,13 @@ Now our Virtual Private Gateway is ready and attached to the VPC. We are done wi
 As mentioned that a customer gateway is the component on our (on-premises) side of the VPN connection which is an essential component. To create a Customer Gateway, go to VPC home page and click on Customer Gateways:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/4.png" alt="4" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/4.png" alt="4" class="img-responsive center-block"/>
 {% endif %}
 
 Click on **Create Customer Gateway**:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/5.png" alt="5" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/5.png" alt="5" class="img-responsive center-block"/>
 {% endif %}
 
 Provide a useful tag name, choose the **Static Routing** option and assign the public IP address of your on-premises network. I'm on my local-machine and my machine is behind a NAT, I'll put my public IP address here. You can find your public IP address while creating a Customer Gateway by [googling what is my ip](http://bfy.tw/2mP).
@@ -94,7 +94,7 @@ We now have both Virtual Private Gateway and Customer Gateway ready. Let's creat
 Go to VPC home page and click on **Site-to-Site VPN Connections**:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/6.png" alt="6" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/6.png" alt="6" class="img-responsive center-block"/>
 {% endif %}
 
 Click Create VPN Connection and choose the Virtual Private Gateway and the Customer Gateway that we just created, choose *Static Routing Option* and provide the CIDR IP Prefix of your local-machine. You can find your local-machine IP by running:
@@ -106,7 +106,7 @@ hostname -I
 My local-machine IP has currently `192.168.8.100` which lies under the CIDR `192.168.0.0/16`, so I'll put here:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/7.png" alt="7" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/7.png" alt="7" class="img-responsive center-block"/>
 {% endif %}
 
 Next, we will associate the Virtual Private Gateway with the VPC's subnet where our EC2 resides in VPC's route table:
@@ -116,13 +116,13 @@ Next, we will associate the Virtual Private Gateway with the VPC's subnet where 
 Go to VPC home page, click on Route Tables, select the route table associated with the subnet where the EC2 resides:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/10.png" alt="10" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/10.png" alt="10" class="img-responsive center-block"/>
 {% endif %}
 
 Click on "Edit Routes" and select the Virtual Private Gateway we provisioned in the Target drop-down section.
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/11.png" alt="11" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/11.png" alt="11" class="img-responsive center-block"/>
 {% endif %}
 
 Now the subnet has been associated with the Virtual Private Gateway in the VPC's route table. Next, we will start configuring the VPN Connection on our loca-machine and starting testing the connection.
@@ -132,13 +132,13 @@ Now the subnet has been associated with the Virtual Private Gateway in the VPC's
 When the VPN Connection's **State** becomes **Available**, click on Download Configuration:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/8.png" alt="8" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/8.png" alt="8" class="img-responsive center-block"/>
 {% endif %}
 
 Choose **Vendor** as **Strongswan**, leave the rest as default and click Download:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/9.png" alt="9" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/9.png" alt="9" class="img-responsive center-block"/>
 {% endif %}
 
 You will get a VPN Connection configuration file. This file contains the IP Address of the VPN Tunnel and Pre-Shared Keys (With other information about the VPN Connection) which are required to establish a VPN Connection.

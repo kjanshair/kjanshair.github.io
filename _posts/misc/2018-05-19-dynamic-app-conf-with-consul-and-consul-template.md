@@ -33,7 +33,7 @@ Another good example of service discovery can be a DNS. If we hit a DNS entry in
 There are many aspects of Consul such as *Service Discovery*, *running Consul in a HA cluster*, *service registration* and others. Here we will see a basic example of *Consul's Key-Value Store* which is a Consul's feature used primarily for storing application configurations. I'll be using a simple Go application which reads application configurations from a `config.json`. Below is the graphical explanation of what we will go through in this post:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/misc/dynamic-app-conf-with-consul-and-consul-template/1.png" alt="consul-template-1" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/misc/dynamic-app-conf-with-consul-and-consul-template/1.png" alt="consul-template-1" class="img-responsive center-block"/>
 {% endif %}
 
 The configurations in this `config.json` file are hard-coded where as we want to utilize Consul's KV store to avoid hard-coding configurations in the file so we don't have to change the file each time if any modification is needed in application settings. Those file updates should be done by the Consul tool. You can replace any file instead of this JSON file as the procedure works the same for all files. The application configuration only contains 2 json objects i.e. `version` and `appname` that the golang application will ready. Let's go through it.
@@ -53,13 +53,13 @@ This will spin up a single node Consul cluster in development mode which is a ni
 Go to `http://<your-server-ip>:8500/ui` to access the Consul Web UI. Web UI is a nice interface to a Consul cluster which we can examine and modify values of different services and configurations in a nice graphical way instead of Consul's DNS or HTTP interface.
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/misc/dynamic-app-conf-with-consul-and-consul-template/2.png" alt="consul-template-1" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/misc/dynamic-app-conf-with-consul-and-consul-template/2.png" alt="consul-template-1" class="img-responsive center-block"/>
 {% endif %}
 
 Next, go to **KEY\VALUE** tab.
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/misc/dynamic-app-conf-with-consul-and-consul-template/3.png" alt="consul-template-1" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/misc/dynamic-app-conf-with-consul-and-consul-template/3.png" alt="consul-template-1" class="img-responsive center-block"/>
 {% endif %}
 
 Now before adding anything here in the KV store, let's configure and start the `consul-template` on the system as the daemon process.
@@ -128,7 +128,7 @@ Next go to *Consul Web UI => KEY\VALUE* and add the following keys and values in
 `app/config/appname = golang`
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/misc/dynamic-app-conf-with-consul-and-consul-template/4.png" alt="consul-template-1" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/misc/dynamic-app-conf-with-consul-and-consul-template/4.png" alt="consul-template-1" class="img-responsive center-block"/>
 {% endif %}
 
 Upon hitting *START\UPDATE*, the `consul-template` will update those keys with their respective keys and values against the Web UI and `consul-template` daemon would be triggered each time we  update values in the  Consul Web UI and changes will be reflected in the `config.json` file. You can either open the file or run the Go application to check the updated values from Consul KV store. You shoud give it a try to modify them yourself by modifying the application configurations in the Consul's key value & see the reflections in action.

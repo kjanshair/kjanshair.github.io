@@ -47,13 +47,13 @@ AWS Transit Gateway is device to which *different networks are attached* called 
 As said earlier that a customer gateway is the component on our side of the VPN connection. This component is required to setup up a VPN Connection with AWS TGW. To create a Customer Gateway, go to VPC home page and click on "Customer Gateways":
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/4.png" alt="4" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/4.png" alt="4" class="img-responsive center-block"/>
 {% endif %}
 
 Click on **Create Customer Gateway**:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/14.png" alt="14" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/14.png" alt="14" class="img-responsive center-block"/>
 {% endif %}
 
 Provide a useful tag name, choose the **Static Routing** option and assign the public IP address of your on-premises network. I'm on my local-machine and my machine is behind a NAT, I'll put here my public IP address. You can find your public IP address while creating a Customer Gateway by [googling what is my ip](http://bfy.tw/2mP).
@@ -63,13 +63,13 @@ Provide a useful tag name, choose the **Static Routing** option and assign the p
 We have the environment and Customer Gateway ready. Next, we will create the Transit Gateway: Go to VPC Dashboard in AWS Management Console, click on *Transit Gateways* and click **Create Transit Gateway**:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/1.png" alt="1" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/1.png" alt="1" class="img-responsive center-block"/>
 {% endif %}
 
 Provide a useful name, a description and leave rest as default then click *Create Transit Gateway*:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/2.png" alt="2" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/2.png" alt="2" class="img-responsive center-block"/>
 {% endif %}
 
 Now Transit Gateway is ready. A default Route Table with a Route has been created for you when we created the Transit Gateway since we have left the rest of the details as default. Next, we need to create **Attachments** to this Transit Gateway device. Remember that we need 2 attachments in our case: A **VPC Attachment** where our EC2 resides and the **VPN Attachment** that we will configuring to securely connect to the EC2.
@@ -79,19 +79,19 @@ Now Transit Gateway is ready. A default Route Table with a Route has been create
 Go to "Transit Gateway Attachments" in Transit Gatways section of the VPC Dashboard and click *Create Transit Gateway Attachment*:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/3.png" alt="3" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/3.png" alt="3" class="img-responsive center-block"/>
 {% endif %}
 
 Choose the ID of the Transit Gateway that we just created with the "Attachment Type" of "VPC" and provide tag name:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/4.png" alt="4" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/4.png" alt="4" class="img-responsive center-block"/>
 {% endif %}
 
 Select the VPC ID on the same page that is created with Terraform script and the subnet which is only one subnet on our case and click **Create Attachment**:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/5.png" alt="5" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/5.png" alt="5" class="img-responsive center-block"/>
 {% endif %}
 
 Now we have VPC Transit Gateway Attachment ready, let's create VPN Connection attachment.
@@ -101,13 +101,13 @@ Now we have VPC Transit Gateway Attachment ready, let's create VPN Connection at
 Go to *Create Transit Gateway Attachment* section of the VPC Dashboard and click *Create Attachment*, choose the **same Transit Gateway ID** that we used while creating the VPC Attachment with the "Attachment Type" of "VPN". This time it will ask for a Customer Gateway, choose the Customer Gateway we created previously, choose the **Static** *Routing Options*, leave the rest as default and click **Create Attachment**:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/6.png" alt="6" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/6.png" alt="6" class="img-responsive center-block"/>
 {% endif %}
 
 The VPN Attachment will start provisioning. After a short time, when VPN Attachment **State** becomes **Available**, we can say that VPN attachment has been made successfully with AWS Transit Gateway:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/7.png" alt="7" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/7.png" alt="7" class="img-responsive center-block"/>
 {% endif %}
 
 #### Creating Routes for Transit Gateway
@@ -115,7 +115,7 @@ The VPN Attachment will start provisioning. After a short time, when VPN Attachm
 When both VPC and VPN attachment are created, we need to configure **Routes** for both attachments so the TGW knows where to send traffic when traffic arrives from an attachment. Routes are created in **Transit Gateway Route Tables**. Remember that a default Route Table was created for us. This is because we'd allowed a default Route Table to be created when we were provisioning the Transit Gateway. To create a Route, go to *Transit Gateway Route Tables* section of the Transit Gateway in the VPC Dashboard where you will find a default Route Table. Go to **Routes** section of the Route Table and click **Create Route**:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/8.png" alt="8" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/8.png" alt="8" class="img-responsive center-block"/>
 {% endif %}
 
 Enter the CIDR IP Prefix of your local-machine. My local-machine has `192.168.0.0/16` CIDR Prefix (that is the same way we do when creating a VPN Connection with a Virtual Private Gateway). You can find your own by running:
@@ -126,19 +126,19 @@ hostname -I
 Choose the **VPN Attachment** that we just created and click **Create Route**:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/9.png" alt="9" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/9.png" alt="9" class="img-responsive center-block"/>
 {% endif %}
 
 When the routes are created with the Transit Gateway, we need to change the **VPC**'s Route Table where the EC2 resides. To do this, go to Route Table section of the VPC Dashboard, select Route Table attached with the EC2 subnet, select the **Routes** section and click **Edit Routes**:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/10.png" alt="10" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/10.png" alt="10" class="img-responsive center-block"/>
 {% endif %}
 
 Choose the *Destination* as `0.0.0.0/0` and *Target* as the **Transit Gateway** that we created at the beginning:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/11.png" alt="11" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/11.png" alt="11" class="img-responsive center-block"/>
 {% endif %}
 
 Once VPC Route Table is updated to the Transit Gateway. Finally we will setup our network using Strongswan to establish the VPN connection.
@@ -148,13 +148,13 @@ Once VPC Route Table is updated to the Transit Gateway. Finally we will setup ou
 In the *Virtual Private Network* section of the VPC Dashboard, choose the Site-to-Site VPN Connection that is created with the **VPN Attachment** and click on Download Configuration:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/12.png" alt="12" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/12.png" alt="12" class="img-responsive center-block"/>
 {% endif %}
 
 Choose **Vendor** as **Strongswan**, leave the rest as default and click Download:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.azureedge.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/13.png" alt="13" class="img-responsive center-block"/>
+<img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/13.png" alt="13" class="img-responsive center-block"/>
 {% endif %}
 
 You will get a VPN Connection configuration file. This file contains the IP Address of the VPN Tunnel and Pre-Shared Keys (With other information about the VPN Connection) which are required to establish a VPN Connection.

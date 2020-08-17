@@ -128,7 +128,7 @@ curl --data-binary "@go-0.1.0.tgz" http://localhost:8080/api/charts
 This command will return a JSON response saying that the chart is uploaded to the repository. Uploaded packaged chart can be viewed in the Azure Blob Storage:
 
 {% if jekyll.environment == "production" %}
-  <img src="https://kjanshair.azureedge.net/misc/using-helm-helm-repositories-and-chartmuseum/1.png" alt="jenkins-slave-arch" class="img-responsive center-block"/>
+  <img src="https://kjanshair.blob.core.windows.net/misc/using-helm-helm-repositories-and-chartmuseum/1.png" alt="jenkins-slave-arch" class="img-responsive center-block"/>
 {% endif %}
 
 
