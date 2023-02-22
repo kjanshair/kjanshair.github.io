@@ -17,7 +17,7 @@
     "gulp-watch": "*"
   },
   "dependencies": {
-    "bootstrap": "^4.2.1",
+    "bootstrap": "^4.3.1",
     "bootstrap-social": "^5.1.1"
   }
 }
