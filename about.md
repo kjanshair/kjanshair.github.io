@@ -4,4 +4,4 @@ title: About Me
 color: "#119AF4"
 ---
 
-I'm a DevOps Engineer with expertise in several areas including Cloud Computing, Distributed Systems, Containers, Embedded Systems, OSS, Security and more.
+I am an experienced DevOps Engineer with a high level of proficiency in Cloud Computing, Distributed Systems, Containers and Security. I have built upon my conceptual knowledge in different facets of DevOps such as managing both On-Premises and Public Cloud (Azure and AWS) infrastructure, CI/CD, Containerization, Networking, Configuration Management, Agile, System Programming and architecting robust solutions.
