@@ -2,7 +2,7 @@ title:             Janshair Khan
 email:             kjanshair@gmail.com
 # description:       A Blog Theme by Start Bootstrap
 author:            Janshair Khan
-baseurl:           "/"
+# baseurl:           "/"
 url:               "http://blog.kjanshair.com"
 permalink: /:year/:month/:day/:title/
 
