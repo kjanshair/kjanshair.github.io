@@ -25,7 +25,7 @@ Ansible is an SCM tool and is used to automate repetitive tasks that is usually 
 
 At first, *ACS or Ansible Control* Server is the component which does the main configuration tasks on one or more servers. ACS server can be located on your own local machine or somewhere else on the Internet. *Ansible Inventory* (As the name suggests) is the inventory of *Servers* where ACS will perform the configuration steps and finally Ansible Playbooks are those required steps that ACS will perform on that inventory of servers. Ansible interacts with servers via SSH protocol which is a secure way of managing and configuring servers i.e. all the operations and file transfers are encrypted in every session. 
 
-<img src="https://kjanshair.blob.core.windows.net/azure/up-and-running-with-ansible-and-microsoft-azure/1.png" alt="ansible-architecture" class="img-responsive center-block"/>
+<img src="{{ site.cdnurl }}/azure/up-and-running-with-ansible-and-microsoft-azure/1.png" alt="ansible-architecture" class="img-responsive center-block"/>
 
 As illustrated in the above image that the server are in one of the Azure region (see next), ACS interacts with the server through the Inventory file (as those servers are defined in the inventory file) and apply the configurations defined in the Playbooks. It is important to note that ACS does not use any database which makes it super light-weight to download, install and configure. Let's see an example to see Ansible in action.
 

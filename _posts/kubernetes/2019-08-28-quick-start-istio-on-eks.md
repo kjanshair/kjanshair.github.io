@@ -155,7 +155,7 @@ kubectl port-forward grafana-xxxxxxxxx-xxxxx 3000:3000 -n istio-system
 Navigate to `localhost:3000` and select `istio-mesh` Dashboard. You will see something similar as shown below:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.blob.core.windows.net/kubernetes/quick-start-istio-on-eks/1.png" alt="1" class="img-responsive center-block"/>
+<img src="{{ site.cdnurl }}/kubernetes/quick-start-istio-on-eks/1.png" alt="1" class="img-responsive center-block"/>
 {% endif %}
 
 You will see **N\A** for each application metric from Istio. This is because we haven't generated any traffic.
@@ -176,7 +176,7 @@ Hello version: v2, instance: helloworld-v2-78bfccd65f-9j72h
 Hit the endpoint in the browser or with `cURL` couple of times and check the Istio Mesh Dashboard in Grafana. After a couple of seconds, you will begin see some data:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.blob.core.windows.net/kubernetes/quick-start-istio-on-eks/2.png" alt="2" class="img-responsive center-block"/>
+<img src="{{ site.cdnurl }}/kubernetes/quick-start-istio-on-eks/2.png" alt="2" class="img-responsive center-block"/>
 {% endif %}
 
 Go through the other dashboards in Grafana to further check metrics of the `hello world` service that we just deployed.
@@ -198,13 +198,13 @@ kubectl port-forward istio-tracing-595796cf54-5dpzm 15032:16686
 And navigate to `http://localhost:15032/` and find the tracing for `hello world` service as shown below:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.blob.core.windows.net/kubernetes/quick-start-istio-on-eks/3.png" alt="3" class="img-responsive center-block"/>
+<img src="{{ site.cdnurl }}/kubernetes/quick-start-istio-on-eks/3.png" alt="3" class="img-responsive center-block"/>
 {% endif %}
 
 And click **Find Traces** at the bottom. You will see a similar tracing Dashboard for `hello world` app as shown below:
 
 {% if jekyll.environment == "production" %}
-<img src="https://kjanshair.blob.core.windows.net/kubernetes/quick-start-istio-on-eks/4.png" alt="4" class="img-responsive center-block"/>
+<img src="{{ site.cdnurl }}/kubernetes/quick-start-istio-on-eks/4.png" alt="4" class="img-responsive center-block"/>
 {% endif %}
 
 ## Conclusion\Clean Up

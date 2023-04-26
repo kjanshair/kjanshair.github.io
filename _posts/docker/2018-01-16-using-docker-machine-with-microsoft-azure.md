@@ -53,7 +53,7 @@ This will setup an Azure Virtual Machine:
 After a short time, it will successfully provision the VM with its components and now run `docker-machine ls` on your machine with Microsoft Azure driver and you'll see Docker Machine is ready.
 
 {% if jekyll.environment == "production" %}
- <img src="https://kjanshair.blob.core.windows.net/docker/docker-machine-azure-driver/docker-machine-azure-1.png" alt="docker-machine-azure-1" class="img-responsive center-block"/>
+ <img src="{{ site.cdnurl }}/docker/docker-machine-azure-driver/docker-machine-azure-1.png" alt="docker-machine-azure-1" class="img-responsive center-block"/>
 {% endif %}
 
 ## Configuring Docker Client to connect to the docker-machine
@@ -61,7 +61,7 @@ After a short time, it will successfully provision the VM with its components an
 The final step needed here is to configure your `docker` CLI to point the Docker Machine running in Azure. To do this, run `docker-machine env machine` command to see the required configuration details.
 
 {% if jekyll.environment == "production" %}
-  <img src="https://kjanshair.blob.core.windows.net/docker/docker-machine-azure-driver/docker-machine-azure-2.png" alt="docker-machine-azure-1" class="img-responsive center-block"/>
+  <img src="{{ site.cdnurl }}/docker/docker-machine-azure-driver/docker-machine-azure-2.png" alt="docker-machine-azure-1" class="img-responsive center-block"/>
 {% endif %}
 
 > Note the `DOCKER_HOST` environment variable. It displays the Public IP address of the VM that we just provisioned.
@@ -81,7 +81,7 @@ docker run -d --name app -p 80:80 kjanshair/aspnetcore-example
 And browse to the Public IP address of the VM in a browser and you will see that the application is up and running.
 
 {% if jekyll.environment == "production" %}
-  <img src="https://kjanshair.blob.core.windows.net/docker/docker-machine-azure-driver/docker-machine-azure-3.png" alt="docker-machine-azure-1" class="img-responsive center-block"/>
+  <img src="{{ site.cdnurl }}/docker/docker-machine-azure-driver/docker-machine-azure-3.png" alt="docker-machine-azure-1" class="img-responsive center-block"/>
 {% endif %}
 
 

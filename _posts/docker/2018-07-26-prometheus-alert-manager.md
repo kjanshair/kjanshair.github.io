@@ -17,17 +17,17 @@ We defined AlertManager's configuration in Prometheus `prometheus.yml` configura
 
 In the below image, I showed visually that how a Prometheus and  the AlertManager are interacting with an Exporter (BlackBox Exporter in this case), a notification client and an HTTP Web server.
 
-<img src="https://kjanshair.blob.core.windows.net/docker/prometheus-alert-manager/1.png" alt="prom-am-1" class="img-responsive center-block"/>
+<img src="{{ site.cdnurl }}/docker/prometheus-alert-manager/1.png" alt="prom-am-1" class="img-responsive center-block"/>
 
 In this post, we will see Prometheus, AlertManager, BlackBox Exporter, 2 HTTP servers and a notification client as vehicles to understand how the monitoring stack works in practice. We will be monitoring the status of an Apache HTTP server and an NGINX Web server. All of the components will be running in Docker containers.
 
-<img src="https://kjanshair.blob.core.windows.net/docker/prometheus-alert-manager/2.png" alt="prom-am-2" class="img-responsive center-block"/>
+<img src="{{ site.cdnurl }}/docker/prometheus-alert-manager/2.png" alt="prom-am-2" class="img-responsive center-block"/>
 
 Prometheus BlackBox Exporter will probe for the health status check on NGINX and Apache over HTTP with a constant time-interval. Prometheus Server will check the health status of NGINX and Apache via the BlackBox Exporter. If any of the service goes down or stops responding, HTTP probe will fail in BlackBox Exporter and Prometheus Server will fire alerts based on the rules defined in the `alert.rules` file and based on the service which stopped responding i.e. if Apache HTTP service is down, notify to Team 1 via the **email-1** and vice versa. Below is the image shows the flow:
 
-<img src="https://kjanshair.blob.core.windows.net/docker/prometheus-alert-manager/3.png" alt="prom-am-3" class="img-responsive center-block"/>
+<img src="{{ site.cdnurl }}/docker/prometheus-alert-manager/3.png" alt="prom-am-3" class="img-responsive center-block"/>
 
-<img src="https://kjanshair.blob.core.windows.net/docker/prometheus-alert-manager/4.png" alt="prom-am-4" class="img-responsive center-block"/>
+<img src="{{ site.cdnurl }}/docker/prometheus-alert-manager/4.png" alt="prom-am-4" class="img-responsive center-block"/>
 
 > You can find the source code <a href="https://github.com/kjanshair/docker-prometheus" class="underline" target="_blank">here</a>.
 

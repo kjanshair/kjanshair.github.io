@@ -31,17 +31,17 @@ A Docker image is composed of *layers*. A Docker image is created using a *Docke
 
 If we take each floor as **a layer** of the building, we can say that the building has 4 layers built on the top of each other. The bottom most layer is called the *base* layer of the building as shown below. At the top of the base layer, we add additional layer to form a complete building.
 
-<img src="https://kjanshair.blob.core.windows.net/docker/understanding-creating-effective-docker-images/1.png" alt="building-1" class="img-responsive center-block"/>
+<img src="{{ site.cdnurl }}/docker/understanding-creating-effective-docker-images/1.png" alt="building-1" class="img-responsive center-block"/>
 
 Suppose we want to make a change in the layer 2 of the building, for this we have to destroy and re-build the 3rd and 4th layers of the building as well for but won't change the bottom most base layer.
 
 Similar concept applies to Docker images. Docker images are composed of layers built on the top of each other. If we modify any layer below the top most layer, all the upper layers would take effect but the layers below that **modified** layer won't change.
 
-<img src="https://kjanshair.blob.core.windows.net/docker/understanding-creating-effective-docker-images/2.png" alt="building-2" class="img-responsive center-block"/>
+<img src="{{ site.cdnurl }}/docker/understanding-creating-effective-docker-images/2.png" alt="building-2" class="img-responsive center-block"/>
 
-<img src="https://kjanshair.blob.core.windows.net/docker/understanding-creating-effective-docker-images/3.png" alt="building-3" class="img-responsive center-block"/>
+<img src="{{ site.cdnurl }}/docker/understanding-creating-effective-docker-images/3.png" alt="building-3" class="img-responsive center-block"/>
 
-<img src="https://kjanshair.blob.core.windows.net/docker/understanding-creating-effective-docker-images/4.png" alt="building-4" class="img-responsive center-block"/>
+<img src="{{ site.cdnurl }}/docker/understanding-creating-effective-docker-images/4.png" alt="building-4" class="img-responsive center-block"/>
 
 Let's take a simple example to see how image layers are created & organized. Consider the below Dockerfile:
 

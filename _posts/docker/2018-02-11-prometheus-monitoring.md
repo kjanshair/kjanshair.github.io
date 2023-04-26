@@ -2,7 +2,7 @@
 layout:     post
 date:       2018-02-20
 isImage: true
-imageUrl: https://kjanshair.blob.core.windows.net/docker/prometheus-introduction/prometheus.png
+imageUrl: {{ site.cdnurl }}/docker/prometheus-introduction/prometheus.png
 comments: true
 author: "Janshair Khan"
 color: "#E6522C"
@@ -30,13 +30,13 @@ Each unit of a target such as current CPU status, memory usage (In case of a Lin
 
 Prometheus server **scrapes** targets at a given interval that you define to collect metrics from specific targets and store them in a ***time-series database***. You define the targets and the time-interval for scraping metrics in the `prometheus.yml` configuration file.
 
-<img src="https://kjanshair.blob.core.windows.net/docker/prometheus-introduction/1.png" alt="prometheus-app-api" class="img-responsive center-block"/>
+<img src="{{ site.cdnurl }}/docker/prometheus-introduction/1.png" alt="prometheus-app-api" class="img-responsive center-block"/>
 
 You get the metrics details by querying from the Prometheus's time-series database where the Prometheus stores metrics and you use a query language called **PromQL** in the Prometheus server to query metrics about the targets. In other words, you ask the Prometheus server via PromQL to show us the status of a particular target at a given time.
 
 Prometheus provides client-libraries in a number of languages that you can use to provide health-status of your application. But Prometheus is not only about application monitoring, you can use something called **Exporters** to monitor third-party systems  (Such as a Linux Server, MySQL daemon etc). An Exporter is a piece of software that gets existing metrics from a third-party system and export them to the metric format that the Prometheus server can understand. 
 
-<img src="https://kjanshair.blob.core.windows.net/docker/prometheus-introduction/2.png" alt="prometheus-app-exporters" class="img-responsive center-block"/>
+<img src="{{ site.cdnurl }}/docker/prometheus-introduction/2.png" alt="prometheus-app-exporters" class="img-responsive center-block"/>
 
 A sample metric from a Prometheus server could be the current usage of free memory or file-system free via a Node Exporter in the Prometheus server.
 
@@ -159,7 +159,7 @@ If you run Prometheus server, you should now see or execute the PromQL queries w
 
 Grafana is a Data visualization & Monitoring tool with support for a number of databases including Prometheus TSDB. With Grafana,you can create some fancy graphical UI for metrics that you collect from Prometheus server as shown below:
 
-<img src="https://kjanshair.blob.core.windows.net/docker/prometheus-introduction/3.png" alt="grafana-dashboard" class="img-responsive center-block"/>
+<img src="{{ site.cdnurl }}/docker/prometheus-introduction/3.png" alt="grafana-dashboard" class="img-responsive center-block"/>
 
 What happens here though is you write PromQL queries in Grafana Dashboard items instead of writing in the Prometheus server, Grafana pull those metrics from the Prometheus server at an  interval that you choose at the top-right corner of the Grafana Dashboard and displays them graphically in its Dashboard. Grafana itself runs in the Docker container so add the Grafana service and our final `docker-compose` file looks like:
 
@@ -243,7 +243,7 @@ Copy the above `docker-compose` file contents and run `docker-compose up -d` to 
 
 Now finally go to your system's public IP address with the port `3000` and enter `admin:admin` user name and password to see your server stats in the Grafana Dashboard. You will see something like shown below:
 
-<img src="https://kjanshair.blob.core.windows.net/docker/prometheus-introduction/3.png" alt="grafana-dashboard" class="img-responsive center-block"/>
+<img src="{{ site.cdnurl }}/docker/prometheus-introduction/3.png" alt="grafana-dashboard" class="img-responsive center-block"/>
 
 ## Conclusion
 
