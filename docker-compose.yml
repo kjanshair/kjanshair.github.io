@@ -2,14 +2,22 @@ version: "3"
 
 services:
   kjanshair:
-    image: jekyll/jekyll:latest
-    container_name: "kjanshair"
+    image: kjanshair/jekyll:4.2.2
+    build:
+      context: .
+      dockerfile: dockerfile-gem
+    container_name: kjanshair
     volumes:
-     - "./:/app"
-     - "/usr/local/bundle:/usr/local/bundle"
+     - ./:/app
+     - ./bundles:/usr/local/bundle
     environment:
      - JEKYLL_ENV=development
     working_dir: /app
     ports:
-     - "4000:4000"
-    command: "jekyll serve"
+     - 4000:4000
+    command: jekyll serve
+
+networks:
+  default:
+    name: isolated_network
+    external: true
