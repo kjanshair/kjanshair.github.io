@@ -7,13 +7,13 @@ author:     "Janshair Khan"
 color: "#F69400"
 ---
 
-In the last [post](https://kjanshair.github.io/2020/09/18/setting-up-aws-managed-remote-access-vpn-vpg-1-2/), we saw how to setup a Remote Access VPN connection between the on-premises and the AWS VPC networks. In this post, we will setup the Remote Access VPN connection with a more robust approach that is by using **AWS Transit Gateway**.
+In the last [post](https://kjanshair.github.io/2020/09/18/setting-up-aws-managed-remote-access-vpn-vpg-1-2/), we saw how to se tup a Remote Access VPN connection between the on-premises and the AWS VPC networks. In this post, we will setup the Remote Access VPN connection with a more robust approach that is by using **AWS Transit Gateway**.
 
 #### The Problem!
 Previously, we have been using *Virtual Private Gateways* and *VPC Peering Connections* in AWS to configure various network connections between the on-premises and AWS networks. As the number of connections grow, managing these Virtual Private Gateways & Peering Connections becomes a difficult task and we end up with scattered information forming **Meshes** of different on-premises and AWS networks. For instance, if we have to peer 5 VPCs in AWS, we end up with 10 VPC Peering Connections and it becomes even more handy when we have more networks to deal with that is spanned across on-premises and multi-account AWS networks.
 
 #### Introducing AWS Transit Gateway
-AWS Transit Gateway (TGW) mitigates the above problem by allowing us to **centrally manage** all network connections and routing. Transit Gateway helps prevent forming the network mesh. Transit Gateway is fully managed and scalable network solution from AWS.
+AWS Transit Gateway (TGW) mitigates the above problem by allowing us to manage all network connections and routing centrally. Transit Gateway helps prevent forming the network mesh. Transit Gateway is fully managed and scalable network solution from AWS.
 
 > You can find more on in the [FAQs](https://aws.amazon.com/transit-gateway/faqs/) of the Transit Gateway.
 
@@ -34,7 +34,7 @@ terraform apply -var-file=input.tfvars -auto-approve
 
 Once the script is executed, you will see a VPC has been created with a private subnet, a route table and an EC2 without the public IP address. The script creates one subnet in one Availability Zone for demonstration purpose.
 
-Once the environment is ready, let's start creating a Remote Access VPN connection with AWS Transit Gateway.
+Once the environment is ready, let's start creating a remote access VPN connection with AWS Transit Gateway.
 
 ### Setting up a Remote Access VPN Connection using AWS Transit Gateway
 
@@ -42,7 +42,7 @@ This time, we will be setting up the VPN connection using Transit Gateway (TGW).
 
 #### Transit Gateway Attachments
 
-Think of the Transit Gateway as a software device to which *different networks are attached* called **Attachments**. For instance, to create a connection between 2 VPCs, you will create 2 attachments with the Transit Gateway. In our case, we have 2 networks: On-premises and the AWS VPC network. So we will be creating 2 attachments: A VPN Attachment and a VPC Attachment. We will finally define **Routes** in the **Route Table** of the Transit Gateway to form the VPN connection.
+Think of the Transit Gateway as a software device to which *different networks are attached* called **Attachments**. For instance, to create a connection between two VPCs, you will create 2 attachments with the Transit Gateway. In our case, we have 2 networks: On-premises and the AWS VPC network. So we will be creating 2 attachments: A VPN Attachment and a VPC Attachment. We will finally define **Routes** in the **Route Table** of the Transit Gateway to form the VPN connection.
 
 #### Creating a Customer Gateway
 
@@ -70,13 +70,13 @@ Go to VPC Dashboard in AWS Management Console, click on *Transit Gateways* and c
 <img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/1.png" alt="1" class="img-responsive center-block"/>
 {% endif %}
 
-Put a name, a description and you can leave rest of the options default and click *Create Transit Gateway*:
+Put a name, a description and you can leave the rest of the options as default and click *Create Transit Gateway*:
 
 {% if jekyll.environment == "production" %}
 <img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/2.png" alt="2" class="img-responsive center-block"/>
 {% endif %}
 
-Now Transit Gateway is ready. A default Route Table (with one Route) has been created for you when we provision the Transit Gateway as we have left the rest of the options default. Next we need to create **Attachments**. As said, we need 2 attachments: A **VPC Attachment** where our EC2 resides and the **VPN Attachment** that we will configuring to securely connect to the EC2 through the tunnel.
+Now Transit Gateway is ready. A default Route Table (with one Route) has been created for you when we provision the Transit Gateway as we have left the rest of the options default. Next we need to create **Attachments**. As said, we need 2 attachments: A **VPC Attachment** where our EC2 resides and the **VPN Attachment** that we will configure to securely connect to the EC2 through the tunnel.
 
 #### VPC Attachment
 
@@ -108,7 +108,7 @@ Go to *Create Transit Gateway Attachment* section in the VPC Dashboard and click
 <img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/6.png" alt="6" class="img-responsive center-block"/>
 {% endif %}
 
-The VPN Attachment will start provisioning. After a short time, when VPN Attachment **State** becomes **Available**, we assume that the VPN attachment has been made successfully with the Transit Gateway:
+The VPN Attachment will start provisioning. After a short time, when VPN Attachment **State** becomes **Available**, we assume that the VPN attachment has been made successfully to the Transit Gateway:
 
 {% if jekyll.environment == "production" %}
 <img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-tgw-2-2/7.png" alt="7" class="img-responsive center-block"/>

@@ -7,11 +7,11 @@ author:     "Janshair Khan"
 color: "#F69400"
 ---
 
-In this first post, we will see how to setup an AWS managed Remote Access VPN using **Virtual Private Gateway** and test connectivity with an EC2. We will setup a VPN tunnel through which network traffic flows between the EC2 (remote network) and our local computer (on-premises network) with a *Client VPN software installed*. Before we start setting up the VPN connection, Let's see what AWS VPN components are required and what are they to setup a VPN connection and a lab scenario that we will be using through out the setup. 
+In this first post, we will see how to set up an AWS managed Remote Access VPN using **Virtual Private Gateway** and test connectivity with an EC2. We will set up a VPN tunnel through which network traffic flows between the EC2 (remote network) and our local computer (on-premises network) with a *Client VPN software installed*. Before we start setting up the VPN connection, Let's see what AWS VPN components are required and what are they to set up a VPN connection and a lab scenario that we will be using throughout the set up. 
 
 ### AWS VPN Components
 
-AWS allows access to routers & firewalls *in the form of softwares* through the AWS Management Console and AWS SDKs since we can't have direct access to AWS routers and firewalls. We need to setup a number of other AWS resources such as VPC, EC2 to which we want to setup a VPN connection to which we will be doing using Terraform. Below are the base VPN components that we must know about before setting up a VPN connection in AWS: 
+AWS allows access to routers and firewalls *in the form of software* through the AWS Management Console and AWS SDKs as we cannot have direct access to AWS routers and firewalls. We need to set up a few AWS resources, such as a VPC and an EC2 instance, to which we will be setting up the VPN connection. Below are the basic VPN components that we must know about before setting up a VPN connection in AWS: 
 
 #### Virtual Private Gateway
 
@@ -19,17 +19,17 @@ A Virtual Private Gateway is a software appliance *that sits at the edge of a VP
 
 #### Customer Gateway
 
-A Customer Gateway, in AWS, is a software appliance that represents our network (*on-premises network*) to the AWS that VPN connection will consider as destination when setup. Customer Gateway requires a public IP address of our network when we setup Customer Gateway in AWS.
+A Customer Gateway, in AWS, is a software appliance that represents our network (*on-premises network*) to the AWS, and that VPN connection will consider as destination when set up. The Customer Gateway requires a public IP address of our network while setting it up.
 
 #### AWS VPN Connection
 
-An AWS VPN connection is a *connection between a Virtual Private Gateway and a Customer Gateway*. A VPN connection has 2 VPN tunnels: *Primary* and *Secondary* used for primary and backup purposes. A Virtual Private Gateway and the Customer Gateway uses this connection to establish a Remote Access or Site-2-Side VPN connection between the on-prem network and the AWS VPC.
+An AWS VPN connection is a *connection between a Virtual Private Gateway and a Customer Gateway*. A VPN connection has two VPN tunnels: *Primary* and *Secondary* used for primary and backup purposes. A Virtual Private Gateway and the Customer Gateway use this connection to establish a Remote Access or Site-to-Side VPN connection between the on-prem network and the AWS VPC.
 
 ### Setting up the environment
 
-We will be setting up an AWS VPC with one private subnet, one route table attached to that private subnet and a Linux EC2 with no public IP address assigned (default subnet settings) inside that private subnet. At the end, we will be SSHing into the EC2 instance using the private IP address via the AWS Remote Access VPN tunnel to test the connectivity.
+We will be setting up an AWS VPC with one private subnet, one route table attached to that private subnet, and a Linux EC2 with no public IP address assigned (default subnet settings) inside that private subnet. Finally, we will be SSHing into the EC2 instance using the private IP address via the AWS Remote Access VPN tunnel to test the connectivity.
 
-To quickly setup the environment for this demo, I wrote a Terraform script which you can execute to setup the environment in one go. You will find the script in the repository [URL](https://github.com/kjanshair/aws-vpn-docker)'s **"init"** directory.
+To quickly set up the environment for this demo, I wrote a Terraform script which you can execute to set up the environment in one go. You will find the script in the repository [URL](https://github.com/kjanshair/aws-vpn-docker)s **"init"** directory.
 
 To execute the script, run:
 
@@ -41,9 +41,9 @@ terraform init
 terraform apply -var-file=input.tfvars -auto-approve
 ```
 
-> Modify `input.tfvars` accordingly if you are following along. Also keep in mind that all the AWS resources we will be provisioning may cost you some cents. Make sure you delete them if they are no longer required.
+> Modify `input.tfvars` accordingly if you are following along. Also, keep in mind that all the AWS resources we will be provisioning may cost you some cents. Make sure you delete them if they are no longer required.
 
-Once the script got executed, you will see a VPC is created with a private subnet, a route table and an EC2 with no public IP address. The script creates the only subnet in one Availability Zone for demonstration purpose.
+Once the script gets executed, you will see a VPC is created with a private subnet, a route table and an EC2 with no public IP address. The script creates the only subnet in one Availability Zone for demonstration purpose.
 
 Once ready, let's start creating the VPN connection.
 
@@ -51,15 +51,15 @@ Once ready, let's start creating the VPN connection.
 
 We will start by creating a *Virtual Private Gateway*.
 
-#### Creating using Virtual Private Gateway
+#### Creating a Virtual Private Gateway
 
-As said: Virtual Private Gateway is a software appliance that sits at the edge of the VPC in AWS. Go to VPC home page => Virtual Private Gateways:
+As previously mentioned: Virtual Private Gateway is a software appliance that sits at the edge of the VPC in AWS. Go to the VPC home page => Virtual Private Gateways:
 
 {% if jekyll.environment == "production" %}
 <img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/1.png" alt="1" class="img-responsive center-block"/>
 {% endif %}
 
-Click **Create Virtual Private Gateway**, assign a tag name and choose Amazon Default ASN:
+Click **Create Virtual Private Gateway**, assign a tag name to it and choose Amazon Default ASN:
 
 {% if jekyll.environment == "production" %}
 <img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/2.png" alt="2" class="img-responsive center-block"/>
@@ -87,9 +87,9 @@ Click on **Create Customer Gateway**:
 <img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/5.png" alt="5" class="img-responsive center-block"/>
 {% endif %}
 
-Provide a useful tag name, choose the **Static Routing** option and put the public IP address of your on-prem network there. I'm on my local-machine and my machine is behind a NAT, so I'll put my public IP address here. You can find your public IP address simply by [googling what is my ip](http://bfy.tw/2mP).
+Provide a useful tag name, choose the **Static Routing** option and enter the public IP address of your on-prem network there. I'm on my local machine and my machine is behind a NAT, so I'll enter my public IP address here. You can find your public IP address simply by [googling what is my ip](http://bfy.tw/2mP).
 
-We now have both Virtual Private Gateway and Customer Gateway ready. Let's create the VPN connection.
+We now have both a Virtual Private Gateway and a Customer Gateway ready. Let's create the VPN connection.
 
 #### Creating a Remote Access VPN Connection
 
@@ -105,7 +105,7 @@ Click **Create VPN Connection** and choose the Virtual Private Gateway and the C
 hostname -I
 ```
 
-My local-machine IP has currently `192.168.8.100` which lies under the CIDR `192.168.0.0/16` that I'll put here:
+My local-machine IP has currently `192.168.8.100`, which lies under the CIDR `192.168.0.0/16` that I'll put here:
 
 {% if jekyll.environment == "production" %}
 <img src="https://kjanshair.blob.core.windows.net/aws/setting-up-aws-managed-s2s-vpn-vpg-1-2/7.png" alt="7" class="img-responsive center-block"/>
@@ -145,7 +145,7 @@ Choose **Vendor** as **Strongswan**, leave the rest as default and click Downloa
 
 We will get a connection configuration file. This file contains the IP Address of the VPN Tunnel and Pre-Shared Keys (With some other information about the VPN connection) which are required to establish a VPN connection.
 
-As said to setup or test a VPN connection between 2 networks, we need access to network routers and firewalls. Since we have setup all the VPN connection related stuff on AWS side, we need to configure the VPN connection on our side of the network using the configuration file we just downloaded. Such configurations are usually carried out by Network Administrators when we provide them this configuration file. But, for demo purpose, we will use an awesome VPC client software called **Strongswan** on our computer to test the connection.
+As said to set up or test a VPN connection between 2 networks, we need access to network routers and firewalls. Since we have set up all the VPN connection related stuff on AWS side, we need to configure the VPN connection on our side of the network using the configuration file we just downloaded. Such configurations are usually carried out by Network Administrators when we provide them this configuration file. But, for demo purpose, we will use an awesome VPC client software called **Strongswan** on our computer to test the connection.
 
 We will be configuring the VPN connection using Strongswan running inside a Docker container. I have created a `docker-compose.yml` file for you in the `aws-vpn-docker` [repository](https://github.com/kjanshair/aws-vpn-docker) which has Strongswan preconfigured. The `docker-compose.yml` file is:-
 
@@ -176,7 +176,7 @@ To SSH into the EC2 via it's private IP address. That's all. We have successfull
 
 1. AWS Managed Remote Access VPN is a paid AWS service. Click [here](https://aws.amazon.com/vpn/pricing/) to know more about AWS VPN pricing.
 2. The same methodology works for Site-2-Site, Remote Access VPNs.
-3. For a free VPN service, you need to setup a free VPN commercial software such as [OpenVPN](https://openvpn.net/) and install\manage it on an EC2 instance. Some OpenVPN based AMIs are available in AWS Market Place which you can use.
+3. For a free VPN service, you need to set up a free VPN commercial software such as [OpenVPN](https://openvpn.net/) and install/manage it on an EC2 instance. Some OpenVPN based AMIs are available in AWS Market Place which you can use.
 
 In the next post, we will see how do we use **AWS Transit Gateway** to centrally managed VPC and VPN network connections in AWS.
 
