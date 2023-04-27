@@ -1,8 +1,6 @@
 ---
 layout:     post
 date:       2018-02-20
-isImage: true
-imageUrl: {{ site.cdnurl }}/docker/prometheus-introduction/prometheus.png
 comments: true
 author: "Janshair Khan"
 color: "#E6522C"
